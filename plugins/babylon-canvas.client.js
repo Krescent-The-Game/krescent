@@ -1,4 +1,3 @@
 import Vue from "vue";
-import vb from "vue-babylonjs";
 
-Vue.use(vb);
+Vue.use(window.VueBabylonjs);

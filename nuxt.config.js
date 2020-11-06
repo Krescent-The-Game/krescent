@@ -11,6 +11,12 @@ export default {
       { hid: "description", name: "description", content: "" },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    script: [
+      {
+        type: "module",
+        src: "https://cdn.jsdelivr.net/npm/vue-babylonjs@1.0.0-beta.7",
+      },
+    ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
