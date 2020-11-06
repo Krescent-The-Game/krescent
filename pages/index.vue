@@ -1,25 +1,21 @@
 <template>
-  <div class="container">
+  <div class="krs__container">
     <div>
-      <Logo />
-      <h1 class="title">krescent-game</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
+      <h1 class="krs__title">Krescent</h1>
+      <h2></h2>
+      <div class="krs__home_buttons">
+        <a-button type="primary"
+          ><NuxtLink to="/game"> Play! </NuxtLink></a-button
         >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+        <a-button>
+          <a
+            href="https://github.com/nuxt/nuxt.js"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <a-icon type="github" />GitHub
+          </a>
+        </a-button>
       </div>
     </div>
   </div>
@@ -29,35 +25,14 @@
 export default {};
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
+<style lang="less" scoped>
+.krs__home_buttons {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+  flex-direction: row;
 
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+  button {
+    width: 50%;
+    margin: 0px 5px;
+  }
 }
 </style>

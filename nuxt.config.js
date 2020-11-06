@@ -4,7 +4,7 @@ export default {
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: "krescent-game",
+    title: "Krescent The Game",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -14,10 +14,10 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: ["ant-design-vue/dist/antd.css"],
+  css: ["~assets/styles.less"],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ["@/plugins/antd-ui"],
+  plugins: ["@/plugins/antd-ui", "@/plugins/babylon-canvas.client"],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -40,5 +40,17 @@ export default {
   axios: {},
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: {
+    loaders: {
+      less: {
+        lessOptions: {
+          javascriptEnabled: true,
+        },
+      },
+      babel: {
+        query: { compact: false },
+      },
+    },
+    transpile: ["vue-babylonjs"],
+  },
 };

@@ -15,9 +15,12 @@
     "@nuxtjs/pwa": "^3.0.2",
     "ant-design-vue": "^1.6.5",
     "core-js": "^3.6.5",
-    "nuxt": "^2.14.6"
+    "nuxt": "^2.14.6",
+    "vue-babylonjs": "^1.0.0-beta.7",
+    "@babylonjs/core": "^4.1.0"
   },
   "devDependencies": {
+    "@babylonjs/loaders": "^4.1.0",
     "@nuxtjs/eslint-config": "^3.1.0",
     "@nuxtjs/eslint-module": "^2.0.0",
     "babel-eslint": "^10.1.0",
@@ -25,6 +28,8 @@
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-nuxt": "^1.0.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "less": "^3.12.2",
+    "less-loader": "^7.0.2",
     "prettier": "^2.1.2"
   }
 }

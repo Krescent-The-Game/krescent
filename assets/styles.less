@@ -1,0 +1,63 @@
+@import '~ant-design-vue/dist/antd.less';
+
+:root {
+  --primary: #fc039d;
+  --secondary: #7a4dab;
+}
+
+@primary-color: #fc039d; // primary color for all components
+@link-color: #1890ff; // link color
+@success-color: #52c41a; // success state color
+@warning-color: #faad14; // warning state color
+@error-color: #f5222d; // error state color
+@font-size-base: 14px; // major text font size
+@heading-color: rgba(0, 0, 0, 0.85); // heading text color
+@text-color: rgba(0, 0, 0, 0.65); // major text color
+@text-color-secondary: rgba(0, 0, 0, 0.45); // secondary text color
+@disabled-color: rgba(0, 0, 0, 0.25); // disable state color
+@border-radius-base: 4px; // major border radius
+@border-color-base: #d9d9d9; // major border color
+@box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.15); // major shadow for layers
+
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap");
+
+body,
+h1,
+h2,
+h3,
+h4,
+div,
+p {
+  font-family: "Orbitron", "Quicksand", "Source Sans Pro", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+h1 {
+  font-size: 80px;
+}
+
+h2 {
+  font-size: 70px;
+}
+
+h3 {
+  font-size: 60px;
+}
+
+.krs__container {
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: url("~assets/background.jpg");
+  background-color: black;
+  background-size: cover;
+}
+
+.krs__title {
+  display: block;
+  font-weight: 300;
+  color: var(--primary);
+}
