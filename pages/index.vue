@@ -9,7 +9,7 @@
         >
         <a-button>
           <a
-            href="https://github.com/nuxt/nuxt.js"
+            href="https://github.com/krescent-gaming/krescent-game"
             target="_blank"
             rel="noopener noreferrer"
           >
