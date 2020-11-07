@@ -1,18 +1,54 @@
 <template>
-  <div class="krs__container">
-    <a-card class="krs__card--game">
-      <Scene>
-        <Sphere :position="[6, 0, 0]" :scaling="[1, 1, 1]"></Sphere>
-      </Scene>
-    </a-card>
+  <div class="krs__container krs__container--game krs__full_height">
+    <Scene>
+      <Property name="clearColor" :color="$color(0, 0, 0, 0.1)"></Property>
+      <Camera :target="[0, 1, 3]" type="follow"></Camera>
+      <HemisphericLight></HemisphericLight>
+      <Planet></Planet>
+    </Scene>
   </div>
 </template>
 
-<style lang="less" scoped>
+<script lang="ts">
+import Vue from "vue";
+import Planet from "../components/Planet.vue";
+// import Buggy from "../components/Buggy.vue";
+
+export default Vue.extend({
+  components: {
+    Planet,
+    // Buggy,
+  },
+  data() {
+    return {};
+  },
+});
+</script>
+
+<style lang="less">
+.krs__container--game {
+  background: url("~assets/game-background.png");
+  background-color: black;
+  background-size: cover;
+}
+
+.krs__full_height {
+  * {
+    height: 100%;
+  }
+}
+
 .krs__card--game {
+  height: 100%;
   min-height: 95vh;
   width: 100%;
-  margin: 10px;
-  background: rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  background: transparent;
+
+  div.ant-card-body {
+    min-height: 95vh;
+    padding: 0px;
+    height: 100%;
+  }
 }
 </style>

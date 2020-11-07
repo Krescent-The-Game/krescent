@@ -1,4 +1,10 @@
-@import '~ant-design-vue/dist/antd.less';
+@import "~ant-design-vue/dist/antd.less";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 
 :root {
   --primary: #fc039d;
@@ -34,6 +40,14 @@ p {
 
 h1 {
   font-size: 80px;
+
+  @media screen and (max-width: 425px) {
+    font-size: 60px;
+  }
+
+  @media screen and (max-width: 320px) {
+    font-size: 50px;
+  }
 }
 
 h2 {

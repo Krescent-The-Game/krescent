@@ -11,22 +11,16 @@ export default {
       { hid: "description", name: "description", content: "" },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
-    script: [
-      {
-        type: "module",
-        src: "https://cdn.jsdelivr.net/npm/vue-babylonjs@1.0.0-beta.7",
-      },
-    ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: ["~assets/styles.less"],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ["@/plugins/antd-ui", "@/plugins/babylon-canvas.client"],
+  plugins: ["@/plugins/antd-ui", "@/plugins/babylon-canvas"],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
-  components: true,
+  components: false,
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
@@ -41,6 +35,7 @@ export default {
     // https://go.nuxtjs.dev/pwa
     "@nuxtjs/pwa",
   ],
+  ssr: false,
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
@@ -58,5 +53,9 @@ export default {
       },
     },
     transpile: ["vue-babylonjs"],
+    parallel: true,
+    cache: true,
+    extractCSS: process.env.NODE_ENV === "production",
+    optimizeCSS: process.env.NODE_ENV === "production",
   },
 };
