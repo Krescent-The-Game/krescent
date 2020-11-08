@@ -1,20 +1,30 @@
 <template>
   <Entity>
     <Cylinder
-      :position="[0, -3.85, -15]"
+      v-model="planet"
+      :position="[0, -3.85, -13]"
       :scaling="[6.8, 6.8, 6.8]"
-      :rotation="[-Math.PI / 2, 0, 0]"
+      :rotation="axis"
     >
+      <Material>
+        <Texture
+          src="https://lh3.googleusercontent.com/proxy/BXxoeAlFYNFnF5CyIRVYu5Dqwbue4pZlmMGHTEiKIchKqXPheDeiIEonV-h0gmoUhNLG5KKho7Zp2AJSOI6aUrkayleVeiIGEtGbXj9rCrAwc4U"
+        >
+        </Texture>
+      </Material>
     </Cylinder>
   </Entity>
 </template>
 
 <script lang="ts">
+import { Axis } from "@babylonjs/core";
+
 export default {
   name: "Planet",
   data() {
     return {
-      rotation: [8, 0, 0],
+      planet: null,
+      axis: [-Math.PI / 2, 0, 0],
     };
   },
   mounted() {
@@ -24,11 +34,9 @@ export default {
   },
   methods: {
     rotatePlanet() {
-      this.rotation = [
-        ++this.rotation[0],
-        this.rotation[1],
-        ++this.rotation[2],
-      ];
+      if (this.planet) {
+        this.planet.rotate(Axis.Y, -0.2);
+      }
     },
   },
 };

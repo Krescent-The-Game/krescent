@@ -4,6 +4,7 @@
       <Property name="clearColor" :color="$color(0, 0, 0, 0.1)"></Property>
       <Camera :target="[0, 1, 3]" type="follow"></Camera>
       <HemisphericLight></HemisphericLight>
+      <Buggy></Buggy>
       <Planet></Planet>
     </Scene>
   </div>
@@ -12,12 +13,12 @@
 <script lang="ts">
 import Vue from "vue";
 import Planet from "../components/Planet.vue";
-// import Buggy from "../components/Buggy.vue";
+import Buggy from "../components/Buggy.vue";
 
 export default Vue.extend({
   components: {
     Planet,
-    // Buggy,
+    Buggy,
   },
   data() {
     return {};
