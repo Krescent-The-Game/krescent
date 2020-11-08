@@ -19,7 +19,7 @@ export default Vue.extend({
   methods: {
     handleMouseDown(e) {
       if (e.key === "ArrowUp") {
-        if (this.buggy.position.y <= 0) {
+        if (this.buggy.position.y <= 0.2) {
           requestAnimationFrame(() => {
             this.buggy.position.y += 0.1;
           });
