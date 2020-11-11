@@ -1,10 +1,10 @@
 <template>
-  <Entity v-model="buggy" :position="position">
-    <Box :scaling="[0.1, 0.05, 0.05]"></Box>
-  </Entity>
+  <Entity v-model="buggy" :position="position"> </Entity>
 </template>
 <script lang="ts">
 import Vue from "vue";
+import { createBuggy } from "../utils/Buggy.helper";
+
 export default Vue.extend({
   name: "Buggy",
   data() {
@@ -12,6 +12,9 @@ export default Vue.extend({
       position: [-0.2, -0.1, -8.5],
       buggy: null,
     };
+  },
+  watch: {
+    buggy: createBuggy,
   },
   mounted() {
     addEventListener("keydown", this.handleMouseDown);

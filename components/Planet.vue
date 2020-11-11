@@ -7,10 +7,7 @@
       :rotation="axis"
     >
       <Material>
-        <Texture
-          src="https://lh3.googleusercontent.com/proxy/BXxoeAlFYNFnF5CyIRVYu5Dqwbue4pZlmMGHTEiKIchKqXPheDeiIEonV-h0gmoUhNLG5KKho7Zp2AJSOI6aUrkayleVeiIGEtGbXj9rCrAwc4U"
-        >
-        </Texture>
+        <Texture :src="require('assets/moon-texture.png')"> </Texture>
       </Material>
     </Cylinder>
   </Entity>
