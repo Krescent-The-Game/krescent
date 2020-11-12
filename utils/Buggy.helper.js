@@ -1,4 +1,5 @@
 import * as BABYLON from "@babylonjs/core";
+import { Axis } from "@babylonjs/core";
 
 export const createBuggy = (buggy) => {
   const bodyMaterial = new BABYLON.StandardMaterial(
@@ -96,13 +97,18 @@ export const createBuggy = (buggy) => {
   wheelFI.position = new BABYLON.Vector3(0, 0, -1.8);
   /* ------------End Create other Wheels as Instances, Parent and Position---------- */
 
-  /* ---------------------Create Car Centre of Rotation----------------------------- */
-  const pivot = BABYLON.MeshBuilder.CreateSphere(
-    "pivot",
-    { diameter: 3 },
-    buggy.getScene()
-  ); // current centre of rotation
-  pivot.position.z = 50;
-  carBody.parent = pivot;
-  carBody.position = new BABYLON.Vector3(0, 0, -50);
+  setInterval(() => {
+    requestAnimationFrame(spinWheel);
+  }, 100);
+
+  const spinWheel = () => {
+    wheelFO.rotate(Axis.Y, -0.2);
+    wheelFI.rotate(Axis.Y, -0.2);
+    wheelRO.rotate(Axis.Y, -0.2);
+    wheelRI.rotate(Axis.Y, -0.2);
+  };
+
+  carBody.parent = buggy;
+  carBody.position = new BABYLON.Vector3(-0.2, -0.1, -8.5);
+  carBody.scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
 };
