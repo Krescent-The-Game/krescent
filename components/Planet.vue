@@ -7,10 +7,7 @@
       :rotation="axis"
     >
       <Material>
-        <Texture
-          src="https://lh3.googleusercontent.com/proxy/BXxoeAlFYNFnF5CyIRVYu5Dqwbue4pZlmMGHTEiKIchKqXPheDeiIEonV-h0gmoUhNLG5KKho7Zp2AJSOI6aUrkayleVeiIGEtGbXj9rCrAwc4U"
-        >
-        </Texture>
+        <Texture :src="require('assets/moon-texture.png')"> </Texture>
       </Material>
     </Cylinder>
   </Entity>
@@ -30,12 +27,12 @@ export default {
   mounted() {
     setInterval(() => {
       requestAnimationFrame(this.rotatePlanet);
-    }, 1000);
+    }, 100);
   },
   methods: {
     rotatePlanet() {
       if (this.planet) {
-        this.planet.rotate(Axis.Y, -0.2);
+        this.planet.rotate(Axis.Y, -0.01);
       }
     },
   },
