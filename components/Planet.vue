@@ -27,12 +27,12 @@ export default {
   mounted() {
     setInterval(() => {
       requestAnimationFrame(this.rotatePlanet);
-    }, 1000);
+    }, 100);
   },
   methods: {
     rotatePlanet() {
       if (this.planet) {
-        this.planet.rotate(Axis.Y, -0.2);
+        this.planet.rotate(Axis.Y, -0.01);
       }
     },
   },

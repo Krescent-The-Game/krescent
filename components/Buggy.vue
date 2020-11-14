@@ -17,5 +17,40 @@ export default Vue.extend({
   watch: {
     buggy: createBuggy,
   },
+  mounted() {
+    addEventListener("keydown", this.handleMouseDown);
+  },
+  methods: {
+    handleMouseDown(e) {
+      if (e.key === "ArrowRight") {
+        if (this.buggy.position.x <= 0.2) {
+          requestAnimationFrame(() => {
+            this.buggy.position.x += 0.1;
+          });
+        }
+      }
+      if (e.key === "ArrowLeft") {
+        if (this.buggy.position.x >= -0.2) {
+          requestAnimationFrame(() => {
+            this.buggy.position.x -= 0.1;
+          });
+        }
+      }
+      if (e.key === "ArrowUp") {
+        if (this.buggy.position.z <= -6.5 + 0.5) {
+          requestAnimationFrame(() => {
+            this.buggy.position.z += 0.1;
+          });
+        }
+      }
+      if (e.key === "ArrowDown") {
+        if (this.buggy.position.z >= -6.5 - 0.5) {
+          requestAnimationFrame(() => {
+            this.buggy.position.z -= 0.1;
+          });
+        }
+      }
+    },
+  },
 });
 </script>
