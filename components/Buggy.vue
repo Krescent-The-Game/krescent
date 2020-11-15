@@ -21,7 +21,35 @@ export default Vue.extend({
     addEventListener("keydown", this.handleMouseDown);
   },
   methods: {
+    handleJumpUp() {
+      requestAnimationFrame(() => {
+        if (this.buggy.position.y < 0.5) {
+          this.buggy.position.y += 0.2;
+        } else {
+          clearInterval(this.upTimer);
+          this.downTimer = setInterval(this.handleJumpDown, 100);
+        }
+      });
+    },
+    handleJumpDown() {
+      requestAnimationFrame(() => {
+        if (this.buggy.position.y > -0.39) {
+          this.buggy.position.y -= 0.2;
+        } else {
+          this.isJumping = false;
+          clearInterval(this.downTimer);
+        }
+      });
+    },
     handleMouseDown(e) {
+      if (e.code === "Space") {
+        if (this.isJumping) {
+          return;
+        }
+        this.isJumping = true;
+        this.handleJumpUp();
+        this.upTimer = setInterval(this.handleJumpUp, 100);
+      }
       if (e.key === "ArrowRight") {
         if (this.buggy.position.x <= 0.2) {
           requestAnimationFrame(() => {
