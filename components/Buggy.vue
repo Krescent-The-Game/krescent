@@ -23,7 +23,7 @@ export default Vue.extend({
   methods: {
     handleJumpUp() {
       requestAnimationFrame(() => {
-        if (this.buggy.position.y < 0.5) {
+        if (this.buggy.position.y < 0.1) {
           this.buggy.position.y += 0.2;
         } else {
           clearInterval(this.upTimer);
