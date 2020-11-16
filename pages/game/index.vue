@@ -12,6 +12,7 @@
         </HemisphericLight>
         <DirectionalLight :direction="[0, 100, 10]"></DirectionalLight>
         <Buggy></Buggy>
+        <Enemy></Enemy>
         <Planet></Planet>
       </Scene>
     </div>
@@ -23,12 +24,14 @@
 import Vue from "vue";
 import Planet from "~/components/Planet.vue";
 import Buggy from "~/components/Buggy.vue";
+import Enemy from "~/components/Enemy.vue";
 import Stats from "~/components/Stats.vue";
 
 export default Vue.extend({
   components: {
     Planet,
     Buggy,
+    Enemy,
     Stats,
   },
   data() {
