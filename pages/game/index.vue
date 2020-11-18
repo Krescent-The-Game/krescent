@@ -6,12 +6,12 @@
     >
       <Scene>
         <Property name="clearColor" :color="$color(0, 0, 0, 0.1)"></Property>
-        <Camera :target="[0, 1, 3]" type="follow"></Camera>
+        <Camera :target="buggy" type="follow"></Camera>
         <HemisphericLight :direction="[0, 5, -1]">
           <property name="intensity" :float="1"></property>
         </HemisphericLight>
         <DirectionalLight :direction="[0, 100, 10]"></DirectionalLight>
-        <Buggy></Buggy>
+        <Buggy v-model="buggy"></Buggy>
         <Planet></Planet>
       </Scene>
     </div>
@@ -32,7 +32,9 @@ export default Vue.extend({
     Stats,
   },
   data() {
-    return {};
+    return {
+      buggy: null
+    };
   },
   computed: {
     gameIsNotOver() {
