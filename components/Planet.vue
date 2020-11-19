@@ -10,18 +10,29 @@
         <Texture :src="require('assets/moon-texture.png')"> </Texture>
       </Material>
     </Cylinder>
+    <RockCluster
+      v-for="(cluster, index) in clusters"
+      :key="index"
+      :duration="cluster.duration"
+    ></RockCluster>
   </Entity>
 </template>
 
-<script lang="ts">
+<script>
 import { Axis } from "@babylonjs/core";
+import { createClusters } from "../utils/Rock.helper";
+import RockCluster from "./RockCluster";
 
 export default {
   name: "Planet",
+  components: {
+    RockCluster,
+  },
   data() {
     return {
       planet: null,
       axis: [-Math.PI / 2, 0, 0],
+      clusters: createClusters(),
     };
   },
   mounted() {

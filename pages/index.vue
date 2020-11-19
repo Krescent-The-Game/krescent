@@ -18,24 +18,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {};
-</script>
-
-<style lang="less" scoped>
-.krs__logo {
-  flex-direction: column;
-}
-
-.krs__home_buttons {
-  display: flex;
-  flex-direction: row;
-  height: unset;
-
-  button {
-    width: 50%;
-    margin: 0px 5px;
-  }
-}
-</style>
