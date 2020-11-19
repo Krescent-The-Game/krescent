@@ -16,31 +16,44 @@
       </Scene>
     </div>
     <Stats></Stats>
+    <Score></Score>
   </div>
 </template>
 
-<script lang="js">
+<script>
 import Vue from "vue";
 import Planet from "~/components/Planet.vue";
 import Buggy from "~/components/Buggy.vue";
 import Stats from "~/components/Stats.vue";
+import Score from "~/components/Score.vue";
 
 export default Vue.extend({
   components: {
     Planet,
     Buggy,
     Stats,
+    Score,
   },
   data() {
     return {
-      buggy: null
+      buggy: null,
     };
   },
   computed: {
     gameIsNotOver() {
       return this.$store.state.stats.health > 0;
     },
-  }
+  },
+  mounted() {
+    const resetScore = -this.$store.state.stats.score;
+    this.$store.commit("stats/mutateScore", resetScore);
+  },
+  middleware({ store, redirect }) {
+    // If the user is healthy
+    if (store.state?.stats?.health <= 0) {
+      return redirect("/game");
+    }
+  },
 });
 </script>
 

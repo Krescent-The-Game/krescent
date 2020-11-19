@@ -1,6 +1,7 @@
 export const state = () => ({
   health: 100,
   ammo: 20,
+  score: 0,
 });
 
 export const mutations = {
@@ -9,5 +10,8 @@ export const mutations = {
   },
   mutateAmmo(state, number) {
     state.ammo = state.ammo + number;
+  },
+  mutateScore(state, number) {
+    state.score = Math.floor((state.score + number) * 100) / 100;
   },
 };

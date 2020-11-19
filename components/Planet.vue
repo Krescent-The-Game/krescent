@@ -36,14 +36,18 @@ export default {
     };
   },
   mounted() {
-    setInterval(() => {
+    this.rotatePlanetTimer = setInterval(() => {
       requestAnimationFrame(this.rotatePlanet);
     }, 100);
+  },
+  beforeDestroy() {
+    clearInterval(this.rotatePlanetTimer);
   },
   methods: {
     rotatePlanet() {
       if (this.planet) {
         this.planet.rotate(Axis.Y, -0.01);
+        this.$store.commit("stats/mutateScore", 0.1);
       }
     },
   },

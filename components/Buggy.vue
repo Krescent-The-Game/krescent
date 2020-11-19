@@ -1,5 +1,10 @@
 <template>
-  <Entity v-model="buggy" :position="position" :scaling="[0.1, 0.1, 0.1]">
+  <Entity
+    v-model="buggy"
+    :position="position"
+    :scaling="scaling"
+    :rotation="rotation"
+  >
   </Entity>
 </template>
 <script lang="ts">
@@ -11,6 +16,8 @@ export default Vue.extend({
   data() {
     return {
       position: [-0.2, -0.4, -6.5],
+      scaling: [0.03, 0.03, 0.03],
+      rotation: [0, 0, Math.PI * 1.5],
       buggy: null,
     };
   },
@@ -19,6 +26,9 @@ export default Vue.extend({
   },
   mounted() {
     addEventListener("keydown", this.handleMouseDown);
+  },
+  beforeDestroy() {
+    removeEventListener("keydown", this.handleMouseDown);
   },
   methods: {
     handleJumpUp() {
@@ -43,6 +53,7 @@ export default Vue.extend({
     },
     handleMouseDown(e) {
       if (e.code === "Space") {
+        this.$store.commit("stats/mutateHealth", -5);
         if (this.isJumping) {
           return;
         }

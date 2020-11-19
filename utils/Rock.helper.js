@@ -1,15 +1,13 @@
 import * as BABYLON from "@babylonjs/core";
 
-export const createRock = (rock) => {
-  BABYLON.SceneLoader.ImportMesh(
+export const createRock = async (rock) => {
+  const imported = await BABYLON.SceneLoader.ImportMeshAsync(
     "",
     "/assets/rock/",
     "scene.gltf",
-    rock.getScene(),
-    (meshes) => {
-      meshes.forEach((mesh) => (mesh.parent = rock));
-    }
+    rock.getScene()
   );
+  imported.meshes.forEach((v) => (v.parent = rock));
 };
 
 export const createRandomRocks = () => {
