@@ -20,6 +20,9 @@
           :percent="ammo"
           :show-info="false"
         />
+        <div v-if="ammoReal === 0">
+          <a-button @click="handleReloadAmmo">Reload</a-button>
+        </div>
       </div>
     </a-card>
   </div>
@@ -49,6 +52,11 @@ export default {
     },
     ammoReal() {
       return this.$store.state.stats.ammo;
+    },
+  },
+  methods: {
+    handleReloadAmmo() {
+      this.$store.commit("stats/mutateAmmo", 20);
     },
   },
 };

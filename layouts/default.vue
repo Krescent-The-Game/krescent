@@ -75,6 +75,10 @@ div {
 
 .krs__logo {
   flex-direction: column;
+
+  div {
+    height: unset;
+  }
 }
 
 .krs__home_buttons {

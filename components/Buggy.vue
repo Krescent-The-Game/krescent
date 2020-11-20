@@ -10,6 +10,7 @@
 <script>
 import Vue from "vue";
 import { createBuggy } from "../utils/Buggy.helper";
+import { createBullets } from "../utils/Bullet.helper";
 
 export default Vue.extend({
   name: "Buggy",
@@ -86,6 +87,12 @@ export default Vue.extend({
           requestAnimationFrame(() => {
             this.buggy.position.z -= 0.1;
           });
+        }
+      }
+      if (e.key === "Enter") {
+        if (this.$store.state.stats.ammo > 0) {
+          createBullets(this.buggy);
+          this.$store.commit("stats/mutateAmmo", -1);
         }
       }
     },
