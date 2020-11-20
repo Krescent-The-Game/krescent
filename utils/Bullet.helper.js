@@ -1,15 +1,17 @@
 import * as BABYLON from "@babylonjs/core";
 
 export const createBullets = (buggy) => {
-  const bullet = new BABYLON.MeshBuilder.CreateSphere(
+  const bullet = new BABYLON.MeshBuilder.CreateCylinder(
     "bullet",
     {
-      diameterX: 0.07,
-      diameterY: 0.04,
-      diameterZ: 0.04,
+      diameter: 0.015,
+      height: 0.05,
     },
     buggy.getScene()
   );
+  bullet.rotation.x = Math.PI / 2;
+  bullet.rotation.y = Math.PI / 2;
+
   bullet.position = JSON.parse(JSON.stringify(buggy.position));
 
   const material = new BABYLON.StandardMaterial(buggy.getScene());
