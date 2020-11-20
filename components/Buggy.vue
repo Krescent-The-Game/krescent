@@ -7,7 +7,7 @@
   >
   </Entity>
 </template>
-<script lang="ts">
+<script>
 import Vue from "vue";
 import { createBuggy } from "../utils/Buggy.helper";
 
@@ -15,9 +15,9 @@ export default Vue.extend({
   name: "Buggy",
   data() {
     return {
-      position: [-0.2, -0.4, -6.5],
-      scaling: [0.03, 0.03, 0.03],
-      rotation: [0, 0, Math.PI * 1.5],
+      position: [-0.2, -0.4, -7.5],
+      scaling: [0.01, 0.01, 0.01],
+      rotation: [-Math.PI / 2, -Math.PI / 2, 0],
       buggy: null,
     };
   },
@@ -53,7 +53,6 @@ export default Vue.extend({
     },
     handleMouseDown(e) {
       if (e.code === "Space") {
-        this.$store.commit("stats/mutateHealth", -5);
         if (this.isJumping) {
           return;
         }
@@ -61,29 +60,29 @@ export default Vue.extend({
         this.handleJumpUp();
         this.upTimer = setInterval(this.handleJumpUp, 100);
       }
-      if (e.key === "ArrowRight") {
+      if (e.key === "ArrowRight" || e.key === "d") {
         if (this.buggy.position.x <= 0.2) {
           requestAnimationFrame(() => {
             this.buggy.position.x += 0.1;
           });
         }
       }
-      if (e.key === "ArrowLeft") {
+      if (e.key === "ArrowLeft" || e.key === "a") {
         if (this.buggy.position.x >= -0.2) {
           requestAnimationFrame(() => {
             this.buggy.position.x -= 0.1;
           });
         }
       }
-      if (e.key === "ArrowUp") {
-        if (this.buggy.position.z <= -6.5 + 0.5) {
+      if (e.key === "ArrowUp" || e.key === "w") {
+        if (this.buggy.position.z <= -7) {
           requestAnimationFrame(() => {
             this.buggy.position.z += 0.1;
           });
         }
       }
-      if (e.key === "ArrowDown") {
-        if (this.buggy.position.z >= -6.5 - 0.5) {
+      if (e.key === "ArrowDown" || e.key === "s") {
+        if (this.buggy.position.z >= -8.5) {
           requestAnimationFrame(() => {
             this.buggy.position.z -= 0.1;
           });

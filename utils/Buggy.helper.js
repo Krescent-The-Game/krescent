@@ -7,5 +7,7 @@ export const createBuggy = async (buggy) => {
     "scene.gltf",
     buggy.getScene()
   );
-  imported.meshes.forEach((v) => (v.parent = buggy));
+  imported.meshes.forEach((v) => {
+    v.parent = buggy;
+  });
 };
