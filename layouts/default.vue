@@ -12,11 +12,12 @@ export default {
       (health) => {
         if (health <= 0) {
           this.$router.push("/game/over");
-        } else {
-          this.$router.push("/game");
         }
       }
     );
+    if (this.$store.state.stats.health <= 0) {
+      this.$router.push("/game/over");
+    }
   },
 };
 </script>
