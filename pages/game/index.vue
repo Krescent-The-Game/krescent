@@ -1,22 +1,33 @@
 <template>
   <div>
-    <div
-      v-if="gameIsNotOver"
-      class="krs__container krs__container--game krs__full_height"
-    >
-      <Scene>
-        <Property name="clearColor" :color="$color(0, 0, 0, 0.1)"></Property>
-        <Camera :target="buggy" type="follow"></Camera>
-        <HemisphericLight :direction="[0, 5, -1]">
-          <property name="intensity" :float="1"></property>
-        </HemisphericLight>
-        <DirectionalLight :direction="[0, 100, 10]"></DirectionalLight>
-        <Buggy v-model="buggy"></Buggy>
-        <Planet></Planet>
-      </Scene>
+    <div v-if="isLoading" class="krs__container krs__logo krs__loading_screen">
+      <h2 class="krs__title">Game is loading...</h2>
+      <a-progress
+        class="krs__loader"
+        :stroke-color="loadingColor"
+        :percent="loadingProgress"
+        :show-info="true"
+      />
     </div>
-    <Stats></Stats>
-    <Score></Score>
+    <div>
+      <div
+        v-if="gameIsNotOver"
+        class="krs__container krs__container--game krs__full_height"
+      >
+        <Scene>
+          <Property name="clearColor" :color="$color(0, 0, 0, 0.1)"></Property>
+          <Camera :target="buggy" type="follow"></Camera>
+          <HemisphericLight :direction="[0, 5, -1]">
+            <property name="intensity" :float="1"></property>
+          </HemisphericLight>
+          <DirectionalLight :direction="[0, 100, 10]"></DirectionalLight>
+          <Buggy v-model="buggy"></Buggy>
+          <Planet></Planet>
+        </Scene>
+      </div>
+      <Stats></Stats>
+      <Score></Score>
+    </div>
   </div>
 </template>
 
@@ -37,16 +48,36 @@ export default Vue.extend({
   data() {
     return {
       buggy: null,
+      loadingColor: {
+        "0%": "var(--info)",
+        "100%": "var(--success)",
+      },
+      loadingProgress: 0,
     };
   },
   computed: {
     gameIsNotOver() {
       return this.$store.state.stats.health > 0;
     },
+    isLoading() {
+      return !this.$store.state.planet.shouldScore;
+    },
   },
   mounted() {
     const resetScore = -this.$store.state.stats.score;
     this.$store.commit("stats/mutateScore", resetScore);
+
+    this.loadingProgressTimer = setInterval(() => {
+      this.loadingProgress += 5;
+    }, 1000);
+
+    setTimeout(() => {
+      clearInterval(this.loadingProgressTimer);
+      this.$store.commit("planet/mutateShouldScore", true);
+    }, 20000);
+  },
+  beforeDestroy() {
+    clearInterval(this.loadingProgressTimer);
   },
   middleware({ store, redirect }) {
     // If the user is healthy
@@ -58,10 +89,21 @@ export default Vue.extend({
 </script>
 
 <style lang="less">
+.krs__loading_screen {
+  position: absolute;
+  z-index: 2;
+  height: 100vh;
+  width: 100vw;
+}
+
 .krs__container--game {
   background: url("~assets/game-background.png");
   background-color: black;
   background-size: cover;
+}
+
+.krs__loader {
+  width: 50%;
 }
 
 .krs__full_height {

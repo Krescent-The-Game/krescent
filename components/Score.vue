@@ -6,6 +6,9 @@
         <span class="krs__game_score--hightlighted">{{ store }}</span></label
       >
     </div>
+    <div>
+      <a-button @click="handleExit">Exit</a-button>
+    </div>
   </div>
 </template>
 
@@ -18,6 +21,12 @@ export default {
   computed: {
     store() {
       return this.$store.state.stats.score;
+    },
+  },
+  methods: {
+    handleExit() {
+      this.$store.commit("planet/mutateShouldScore", false);
+      this.$router.push("/");
     },
   },
 };

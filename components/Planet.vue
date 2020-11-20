@@ -36,9 +36,16 @@ export default {
     };
   },
   mounted() {
-    this.rotatePlanetTimer = setInterval(() => {
-      requestAnimationFrame(this.rotatePlanet);
-    }, 100);
+    this.$store.watch(
+      () => this.$store.state.planet.shouldScore,
+      (shouldScore) => {
+        if (shouldScore) {
+          this.rotatePlanetTimer = setInterval(() => {
+            requestAnimationFrame(this.rotatePlanet);
+          }, 100);
+        }
+      }
+    );
   },
   beforeDestroy() {
     clearInterval(this.rotatePlanetTimer);
