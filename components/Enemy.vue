@@ -9,7 +9,6 @@ export default Vue.extend({
   name: "Enemy",
   data() {
     return {
-      position: [-0.2, -0.4, -7.5],
       enemy: null,
     };
   },
@@ -34,13 +33,13 @@ export default Vue.extend({
 
         // TODO: update this to proper lunar private mesh
         const box = BABYLON.MeshBuilder.CreateBox(
-          "box",
+          "Bomb",
           {},
           this.enemy.getScene()
         );
         box.material = bodyMaterial;
         box.position = new BABYLON.Vector3(
-          -(Math.random() * (2.5 - 1.5) + 1.5),
+          2,
           -0.4,
           this.random([-8, -7.5, -7])
         );
@@ -61,11 +60,11 @@ export default Vue.extend({
         });
         carKeys.push({
           frame: 2 * framerate,
-          value: box.position.x + 3,
+          value: box.position.x - 2,
         });
         carKeys.push({
           frame: 4 * framerate,
-          value: box.position.x + 6,
+          value: box.position.x - 5,
         });
         animEnemy.setKeys(carKeys);
         box.animations = [];

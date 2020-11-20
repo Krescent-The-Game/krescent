@@ -23,7 +23,7 @@
           <DirectionalLight :direction="[0, 100, 10]"></DirectionalLight>
           <Buggy v-model="buggy"></Buggy>
           <Planet></Planet>
-          <Enemey></Enemey>
+          <Enemy></Enemy>
         </Scene>
       </div>
       <Stats></Stats>
@@ -71,13 +71,13 @@ export default Vue.extend({
     this.$store.commit("stats/mutateScore", resetScore);
 
     this.loadingProgressTimer = setInterval(() => {
-      this.loadingProgress += 5;
+      this.loadingProgress += 10;
     }, 1000);
 
     setTimeout(() => {
       clearInterval(this.loadingProgressTimer);
       this.$store.commit("planet/mutateShouldScore", true);
-    }, 20000);
+    }, 10000);
   },
   beforeDestroy() {
     clearInterval(this.loadingProgressTimer);
