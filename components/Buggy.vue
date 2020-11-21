@@ -1,6 +1,7 @@
 <template>
   <Entity
     v-model="buggy"
+    name="Buggy"
     :position="position"
     :scaling="scaling"
     :rotation="rotation"
@@ -36,7 +37,7 @@ export default Vue.extend({
       createBuggy(this.handleIntersect)(e);
     },
     handleIntersect() {
-      this.$store.commit("enemy/decrement");
+      this.$store.commit("enemy/decrementCount");
       this.$store.commit("stats/mutateHealth", -5);
     },
     handleJumpUp() {

@@ -23,6 +23,14 @@ export default {
       return this.$store.state.stats.score;
     },
   },
+  mounted() {
+    this.$store.watch(
+      () => this.$store.state.stats.score,
+      (score) => {
+        this.$store.commit("enemy/setLimit", Math.floor(score / 15));
+      }
+    );
+  },
   methods: {
     handleExit() {
       this.$store.commit("planet/mutateShouldScore", false);

@@ -1,9 +1,11 @@
 <template>
   <Entity v-model="enemy"> </Entity>
 </template>
-<script lang="ts">
+
+<script>
 import Vue from "vue";
 import * as BABYLON from "@babylonjs/core";
+import { randomWithin } from "~/utils/Random.helper";
 
 export default Vue.extend({
   name: "Enemy",
@@ -28,33 +30,34 @@ export default Vue.extend({
     clearInterval(this.createNewEnemyTimer);
   },
   methods: {
-    random(numbers) {
-      return numbers[Math.floor(Math.random() * numbers.length)];
-    },
-    randomWithin(max, min) {
-      return Math.random() * (max - min) + min;
-    },
-    async createNewEnemy() {
-      if (this.$store.getters["enemy/getCount"] <= 5) {
-        this.$store.commit("enemy/increment");
-        const enemy = new BABYLON.Mesh("Bomb", this.enemy.getScene());
-        const imported = await BABYLON.SceneLoader.ImportMeshAsync(
-          "",
-          "/assets/sun_bomb/",
-          "scene.gltf",
+    createNewEnemy() {
+      if (
+        this.$store.getters["enemy/getCount"] <=
+          this.$store.getters["enemy/getLimit"] &&
+        this.$store.getters["enemy/getCount"] <= 20
+      ) {
+        this.$store.commit("enemy/incrementCount");
+
+        const enemy = BABYLON.MeshBuilder.CreateIcoSphere(
+          "Bomb",
+          { radiusX: 0.1, radiusY: 0.1, radiusZ: 0.1, subdivisions: 1.5 },
           this.enemy.getScene()
         );
-        imported.meshes.forEach((v) => {
-          v.scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
-          v.parent = enemy;
-        });
-        enemy.name = "Bomb";
+        const buggy = this.enemy.getScene().getMeshByName("Buggy");
         enemy.position = new BABYLON.Vector3(
           3,
-          -0.4,
-          this.randomWithin(-8.5, -7)
+          buggy.position.y,
+          buggy.position.z
         );
-        enemy.scaling = new BABYLON.Vector3(1.5, 1.5, 1.5);
+        const enemyScale = randomWithin(0.8, 0.7);
+        enemy.scaling = new BABYLON.Vector3(enemyScale, enemyScale, enemyScale);
+
+        const lavaMaterial = new BABYLON.StandardMaterial(
+          "lavaMaterial",
+          this.enemy.getScene()
+        );
+        lavaMaterial.diffuseColor = new BABYLON.Color3(255, 0, 0);
+        enemy.material = lavaMaterial;
 
         const framerate = 10;
         const animEnemy = new BABYLON.Animation(
@@ -64,23 +67,31 @@ export default Vue.extend({
           BABYLON.Animation.ANIMATIONTYPE_FLOAT,
           BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
         );
-        const carKeys = [];
-        carKeys.push({
+        const Keys = [];
+        Keys.push({
           frame: 0,
           value: enemy.position.x,
         });
-        carKeys.push({
+        Keys.push({
           frame: 2 * framerate,
           value: enemy.position.x - 3,
         });
-        carKeys.push({
+        Keys.push({
           frame: 4 * framerate,
           value: enemy.position.x - 6,
         });
-        animEnemy.setKeys(carKeys);
+        animEnemy.setKeys(Keys);
         enemy.animations = [];
         enemy.animations.push(animEnemy);
         this.enemy.getScene().beginAnimation(enemy, 0, 100, true);
+      }
+      if (
+        this.$store.getters["enemy/getCount"] >
+        this.$store.getters["enemy/getLimit"]
+      ) {
+        const bomb = this.enemy.getScene().getMeshByName("Bomb");
+        bomb.dispose();
+        this.$store.commit("enemy/decrementCount");
       }
     },
   },

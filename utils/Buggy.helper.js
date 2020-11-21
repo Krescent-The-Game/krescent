@@ -1,26 +1,88 @@
 import * as BABYLON from "@babylonjs/core";
+import { Axis } from "@babylonjs/core";
 
 export const createBuggy = (handleIntersect) => async (buggy) => {
+  const wheelMaterial = new BABYLON.StandardMaterial(
+    "wheel_mat",
+    buggy.getScene()
+  );
+  const wheelTexture = new BABYLON.Texture(
+    "http://i.imgur.com/ZUWbT6L.png",
+    buggy.getScene()
+  );
+  wheelMaterial.diffuseTexture = wheelTexture;
+
   const imported = await BABYLON.SceneLoader.ImportMeshAsync(
     "",
     "/assets/buggy/",
     "scene.gltf",
     buggy.getScene()
   );
-  imported.meshes.forEach((v) => {
-    v.parent = buggy;
+  const wheels = [];
+
+  imported.meshes.forEach((mesh) => {
+    if (mesh.id === "node3" || mesh.id === "node10") {
+      mesh.dispose();
+    }
+    mesh.parent = buggy;
   });
+
+  const faceColors = [];
+  faceColors[1] = new BABYLON.Color3(0, 0, 0);
+  const faceUV = [];
+  faceUV[0] = new BABYLON.Vector4(0, 0, 1, 1);
+  faceUV[2] = new BABYLON.Vector4(0, 0, 1, 1);
+
+  const wheelFI = BABYLON.MeshBuilder.CreateCylinder(
+    "wheelFI",
+    {
+      diameter: 15,
+      height: 2,
+      tessellation: 24,
+      faceColors,
+      faceUV,
+    },
+    buggy.getScene()
+  );
+  wheelFI.material = wheelMaterial;
+  wheelFI.rotate(BABYLON.Axis.Z, Math.PI / 2, BABYLON.Space.WORLD);
+  wheelFI.parent = buggy;
+
+  const wheelFO = wheelFI.createInstance("FO");
+  wheelFO.parent = buggy;
+  wheelFO.position = new BABYLON.Vector3(12, 19, -2);
+
+  const wheelRI = wheelFI.createInstance("RI");
+  wheelRI.parent = buggy;
+  wheelRI.position = new BABYLON.Vector3(12, -14, -2);
+
+  const wheelRO = wheelFI.createInstance("RO");
+  wheelRO.parent = buggy;
+  wheelRO.position = new BABYLON.Vector3(-12, -14, -2);
+  wheelFI.position = new BABYLON.Vector3(-12, 19, -2);
+
+  wheels.push(wheelFI);
+  wheels.push(wheelRO);
+  wheels.push(wheelRI);
+  wheels.push(wheelFO);
+
+  setInterval(() => {
+    requestAnimationFrame(spinWheel);
+  }, 100);
+
+  const spinWheel = () => {
+    wheels.forEach((wheel) => {
+      wheel.rotate(Axis.Y, 0.2);
+    });
+  };
+
   buggy.getScene().registerBeforeRender(() => {
     const scene = buggy.getScene();
     const bombs = scene.meshes.filter((v) => v.name === "Bomb");
     bombs.forEach((bomb) => {
-      if (bomb._children) {
-        bomb._children.forEach((child) => {
-          if (child.intersectsMesh(buggy, true)) {
-            bomb.dispose();
-            handleIntersect();
-          }
-        });
+      if (bomb.intersectsMesh(buggy, false)) {
+        bomb.dispose();
+        handleIntersect();
       }
     });
   });

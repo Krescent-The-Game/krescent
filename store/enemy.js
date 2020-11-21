@@ -1,21 +1,35 @@
 export const state = () => ({
   enemyCount: 0,
+  enemyLimit: 1,
 });
 
 export const mutations = {
   reset(state) {
     state.enemyCount = 0;
+    state.enemyLimit = 1;
   },
-  increment(state) {
+  incrementCount(state) {
     state.enemyCount++;
   },
-  decrement(state) {
+  incrementLimit(state) {
+    state.enemyLimit++;
+  },
+  decrementCount(state) {
     state.enemyCount--;
+  },
+  decrementLimit(state) {
+    state.enemyLimit--;
+  },
+  setLimit(state, number) {
+    state.enemyLimit = number;
   },
 };
 
 export const getters = {
   getCount: (state) => {
     return state.enemyCount;
+  },
+  getLimit: (state) => {
+    return state.enemyLimit;
   },
 };

@@ -8,6 +8,10 @@
         :percent="loadingProgress"
         :show-info="true"
       />
+      <label class="krs__hint"
+        >Avoid <span class="krs__red_text">RED</span> meteorites.<br />
+        Eat <span class="krs__green_text">GREEN</span> crystals to heal.</label
+      >
     </div>
     <div>
       <div
@@ -73,13 +77,13 @@ export default Vue.extend({
     this.$store.commit("enemy/reset");
 
     this.loadingProgressTimer = setInterval(() => {
-      this.loadingProgress += 10;
+      this.loadingProgress += 20;
     }, 1000);
 
     setTimeout(() => {
       clearInterval(this.loadingProgressTimer);
       this.$store.commit("planet/mutateShouldScore", true);
-    }, 10000);
+    }, 5000);
   },
   beforeDestroy() {
     clearInterval(this.loadingProgressTimer);
@@ -94,6 +98,18 @@ export default Vue.extend({
 </script>
 
 <style lang="less">
+.krs__hint {
+  color: white;
+  margin-top: 100px;
+
+  span.krs__red_text {
+    color: rgb(255, 0, 0);
+  }
+  span.krs__green_text {
+    color: rgb(35, 224, 107);
+  }
+}
+
 .krs__loading_screen {
   position: absolute;
   z-index: 2;
