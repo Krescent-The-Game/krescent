@@ -13,39 +13,50 @@ export default Vue.extend({
     };
   },
   mounted() {
-    setInterval(() => {
-      requestAnimationFrame(this.createNewEnemy);
-    }, 1000);
+    this.$store.watch(
+      () => this.$store.state.planet.shouldScore,
+      (shouldScore) => {
+        if (shouldScore) {
+          this.createNewEnemyTimer = setInterval(() => {
+            requestAnimationFrame(this.createNewEnemy);
+          }, 1000);
+        }
+      }
+    );
+  },
+  beforeDestroy() {
+    clearInterval(this.createNewEnemyTimer);
   },
   methods: {
     random(numbers) {
       return numbers[Math.floor(Math.random() * numbers.length)];
     },
-    createNewEnemy() {
-      if (this.$store.getters["enemy/getCount"] <= 2) {
+    randomWithin(max, min) {
+      return Math.random() * (max - min) + min;
+    },
+    async createNewEnemy() {
+      if (this.$store.getters["enemy/getCount"] <= 5) {
         this.$store.commit("enemy/increment");
-        const bodyMaterial = new BABYLON.StandardMaterial(
-          "body_mat",
+        const enemy = new BABYLON.Mesh("Bomb", this.enemy.getScene());
+        const imported = await BABYLON.SceneLoader.ImportMeshAsync(
+          "",
+          "/assets/sun_bomb/",
+          "scene.gltf",
           this.enemy.getScene()
         );
-        bodyMaterial.diffuseColor = new BABYLON.Color3(1.0, 0.1, 0.3);
-        bodyMaterial.backFaceCulling = false;
-
-        // TODO: update this to proper lunar private mesh
-        const box = BABYLON.MeshBuilder.CreateBox(
-          "Bomb",
-          {},
-          this.enemy.getScene()
-        );
-        box.material = bodyMaterial;
-        box.position = new BABYLON.Vector3(
-          2,
+        imported.meshes.forEach((v) => {
+          v.scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
+          v.parent = enemy;
+        });
+        enemy.name = "Bomb";
+        enemy.position = new BABYLON.Vector3(
+          3,
           -0.4,
-          this.random([-8, -7.5, -7])
+          this.randomWithin(-8.5, -7)
         );
-        box.scaling = new BABYLON.Vector3(0.2, 0.2, 0.2);
+        enemy.scaling = new BABYLON.Vector3(1.5, 1.5, 1.5);
 
-        const framerate = 30;
+        const framerate = 10;
         const animEnemy = new BABYLON.Animation(
           "movingForward",
           "position.x",
@@ -56,20 +67,20 @@ export default Vue.extend({
         const carKeys = [];
         carKeys.push({
           frame: 0,
-          value: box.position.x,
+          value: enemy.position.x,
         });
         carKeys.push({
           frame: 2 * framerate,
-          value: box.position.x - 2,
+          value: enemy.position.x - 3,
         });
         carKeys.push({
           frame: 4 * framerate,
-          value: box.position.x - 5,
+          value: enemy.position.x - 6,
         });
         animEnemy.setKeys(carKeys);
-        box.animations = [];
-        box.animations.push(animEnemy);
-        this.enemy.getScene().beginAnimation(box, 0, 100, true);
+        enemy.animations = [];
+        enemy.animations.push(animEnemy);
+        this.enemy.getScene().beginAnimation(enemy, 0, 100, true);
       }
     },
   },

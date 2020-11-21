@@ -9,6 +9,9 @@ export const mutations = {
   increment(state) {
     state.enemyCount++;
   },
+  decrement(state) {
+    state.enemyCount--;
+  },
 };
 
 export const getters = {

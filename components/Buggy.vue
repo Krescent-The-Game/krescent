@@ -23,7 +23,7 @@ export default Vue.extend({
     };
   },
   watch: {
-    buggy: createBuggy,
+    buggy: "handleCreateBuggy",
   },
   mounted() {
     addEventListener("keydown", this.handleMouseDown);
@@ -32,6 +32,13 @@ export default Vue.extend({
     removeEventListener("keydown", this.handleMouseDown);
   },
   methods: {
+    handleCreateBuggy(e) {
+      createBuggy(this.handleIntersect)(e);
+    },
+    handleIntersect() {
+      this.$store.commit("enemy/decrement");
+      this.$store.commit("stats/mutateHealth", -5);
+    },
     handleJumpUp() {
       requestAnimationFrame(() => {
         if (this.buggy.position.y < 0.1) {

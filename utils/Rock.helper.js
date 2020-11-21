@@ -7,7 +7,10 @@ export const createRock = async (rock) => {
     "scene.gltf",
     rock.getScene()
   );
-  imported.meshes.forEach((v) => (v.parent = rock));
+  imported.meshes.forEach((v) => {
+    v.position.x = 50;
+    v.parent = rock;
+  });
 };
 
 export const createRandomRocks = () => {
