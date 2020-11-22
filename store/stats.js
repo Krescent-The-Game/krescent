@@ -14,4 +14,13 @@ export const mutations = {
   mutateScore(state, number) {
     state.score = Math.floor((state.score + number) * 100) / 100;
   },
+  resetHealth(state) {
+    state.health = 100;
+  },
+  resetScore(state) {
+    state.score = 0;
+  },
+  resetAmmo(state) {
+    state.ammo = 20;
+  },
 };

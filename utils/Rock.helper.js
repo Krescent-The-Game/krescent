@@ -1,55 +1,47 @@
 import * as BABYLON from "@babylonjs/core";
+import { randomWithin } from "./Random.helper";
 
-export const createRock = async (rock) => {
-  const imported = await BABYLON.SceneLoader.ImportMeshAsync(
-    "",
-    "/assets/rock/",
-    "scene.gltf",
-    rock.getScene()
+export const createRock = (rock) => {
+  const scene = rock.getScene();
+
+  const meteorite = BABYLON.MeshBuilder.CreateIcoSphere(
+    "rock",
+    {
+      radiusX: 0.5,
+      radiusY: 0.5,
+      radiusZ: 0.5,
+      subdivisions: 2,
+    },
+    scene
   );
-  imported.meshes.forEach((v) => (v.parent = rock));
+  meteorite.parent = rock;
 };
 
 export const createRandomRocks = () => {
   const yLoc = Math.random() * 40;
-  const xLoc = Math.random() * 50;
-  const limitedRandom = Math.random() >= 0.17 ? 0.17 : Math.random();
+  const xLoc = randomWithin(1.2, 1.1) * 50;
+  const randomScale = randomWithin(0.8, 0.7);
+  const randomZ = randomWithin(0, -5);
 
   return [
     {
-      scaling: [limitedRandom, limitedRandom, limitedRandom],
-      position: [
-        Math.random() * xLoc,
-        Math.random() * yLoc,
-        -limitedRandom * 2,
-      ],
+      scaling: [randomScale, randomScale, randomScale],
+      position: [Math.random() * xLoc, Math.random() * yLoc, -randomZ],
       rotation: [0, Math.random(), Math.random()],
     },
     {
-      scaling: [limitedRandom, limitedRandom, limitedRandom],
-      position: [
-        Math.random() * xLoc,
-        Math.random() * yLoc,
-        -limitedRandom * 2,
-      ],
+      scaling: [randomScale, randomScale, randomScale],
+      position: [Math.random() * xLoc, Math.random() * yLoc, -randomZ],
       rotation: [0, Math.random(), Math.random()],
     },
     {
-      scaling: [limitedRandom, limitedRandom, limitedRandom],
-      position: [
-        Math.random() * xLoc,
-        Math.random() * yLoc,
-        -limitedRandom * 2,
-      ],
+      scaling: [randomScale, randomScale, randomScale],
+      position: [Math.random() * xLoc, Math.random() * yLoc, -randomZ],
       rotation: [0, Math.random(), Math.random()],
     },
     {
-      scaling: [limitedRandom, limitedRandom, limitedRandom],
-      position: [
-        Math.random() * xLoc,
-        Math.random() * yLoc,
-        -limitedRandom * 2,
-      ],
+      scaling: [randomScale, randomScale, randomScale],
+      position: [Math.random() * xLoc, Math.random() * yLoc, -randomZ],
       rotation: [0, Math.random(), Math.random()],
     },
   ];

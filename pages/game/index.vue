@@ -8,6 +8,10 @@
         :percent="loadingProgress"
         :show-info="true"
       />
+      <label class="krs__hint"
+        >Avoid <span class="krs__red_text">RED</span> meteorites.<br />
+        Eat <span class="krs__green_text">GREEN</span> crystals to heal.</label
+      >
     </div>
     <div>
       <div
@@ -23,6 +27,7 @@
           <DirectionalLight :direction="[0, 100, 10]"></DirectionalLight>
           <Buggy v-model="buggy"></Buggy>
           <Planet></Planet>
+          <Enemy></Enemy>
         </Scene>
       </div>
       <Stats></Stats>
@@ -35,6 +40,7 @@
 import Vue from "vue";
 import Planet from "~/components/Planet.vue";
 import Buggy from "~/components/Buggy.vue";
+import Enemy from "~/components/Enemy.vue";
 import Stats from "~/components/Stats.vue";
 import Score from "~/components/Score.vue";
 
@@ -42,6 +48,7 @@ export default Vue.extend({
   components: {
     Planet,
     Buggy,
+    Enemy,
     Stats,
     Score,
   },
@@ -64,17 +71,19 @@ export default Vue.extend({
     },
   },
   mounted() {
-    const resetScore = -this.$store.state.stats.score;
-    this.$store.commit("stats/mutateScore", resetScore);
+    this.$store.commit("stats/resetHealth");
+    this.$store.commit("stats/resetScore");
+    this.$store.commit("stats/resetAmmo");
+    this.$store.commit("enemy/reset");
 
     this.loadingProgressTimer = setInterval(() => {
-      this.loadingProgress += 5;
+      this.loadingProgress += 20;
     }, 1000);
 
     setTimeout(() => {
       clearInterval(this.loadingProgressTimer);
       this.$store.commit("planet/mutateShouldScore", true);
-    }, 20000);
+    }, 5000);
   },
   beforeDestroy() {
     clearInterval(this.loadingProgressTimer);
@@ -89,6 +98,18 @@ export default Vue.extend({
 </script>
 
 <style lang="less">
+.krs__hint {
+  color: white;
+  margin-top: 100px;
+
+  span.krs__red_text {
+    color: rgb(255, 0, 0);
+  }
+  span.krs__green_text {
+    color: rgb(35, 224, 107);
+  }
+}
+
 .krs__loading_screen {
   position: absolute;
   z-index: 2;

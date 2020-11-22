@@ -33,6 +33,7 @@ export default {
   },
   methods: {
     handleRouteToGame() {
+      this.$store.commit("planet/mutateShouldScore", false);
       this.$router.push("/game");
     },
   },
