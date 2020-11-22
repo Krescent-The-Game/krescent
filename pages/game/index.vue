@@ -74,7 +74,6 @@ export default Vue.extend({
     this.$store.commit("stats/resetHealth");
     this.$store.commit("stats/resetScore");
     this.$store.commit("stats/resetAmmo");
-    this.$store.commit("enemy/reset");
 
     this.loadingProgressTimer = setInterval(() => {
       this.loadingProgress += 20;

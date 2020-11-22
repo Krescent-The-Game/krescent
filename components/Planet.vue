@@ -31,22 +31,32 @@ export default {
     this.$store.watch(
       () => this.$store.state.planet.shouldScore,
       (shouldScore) => {
+        if (shouldScore && !window.scoreHasStarted) {
+          window.scoreHasStarted = true;
+          window.rotatePlanetTimer = setInterval(() => {
+            this.scoreCount();
+          }, 100);
+        }
         if (shouldScore) {
           this.rotatePlanetTimer = setInterval(() => {
-            requestAnimationFrame(this.rotatePlanet);
+            this.rotatePlanet();
           }, 100);
         }
       }
     );
   },
   beforeDestroy() {
+    clearInterval(window.rotatePlanetTimer);
     clearInterval(this.rotatePlanetTimer);
+    window.scoreHasStarted = false;
   },
   methods: {
     rotatePlanet() {
-      if (this.planet) {
-        this.planet.rotate(Axis.Y, -0.01);
-        this.$store.commit("stats/mutateScore", 0.6);
+      this.planet.rotate(Axis.Y, -0.01);
+    },
+    scoreCount() {
+      if (window.scoreHasStarted) {
+        this.$store.commit("stats/mutateScore", 1);
       }
     },
   },

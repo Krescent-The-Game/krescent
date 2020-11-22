@@ -1,6 +1,6 @@
 import * as BABYLON from "@babylonjs/core";
 
-export const createBullets = (buggy) => {
+export const createBullets = (handleIntersect) => (buggy) => {
   const bullet = new BABYLON.MeshBuilder.CreateCylinder(
     "bullet",
     {
@@ -18,6 +18,18 @@ export const createBullets = (buggy) => {
   material.alpha = 1;
   material.diffuseColor = new BABYLON.Color3(1.0, 0.2, 0.7);
   bullet.material = material;
+
+  buggy.getScene().registerBeforeRender(() => {
+    const scene = buggy.getScene();
+    const bombs = scene.meshes.filter((v) => v.name === "Bomb");
+    bombs.forEach((bomb) => {
+      if (bomb.intersectsMesh(bullet, false)) {
+        bomb.dispose();
+        bullet.dispose();
+        handleIntersect();
+      }
+    });
+  });
 
   setInterval(
     () =>

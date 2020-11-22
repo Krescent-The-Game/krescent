@@ -75,7 +75,7 @@ export const createBuggy = (handleIntersect) => async (buggy) => {
       wheel.rotate(Axis.Y, 0.2);
     });
   };
-
+  buggy.name = "Buggy";
   buggy.getScene().registerBeforeRender(() => {
     const scene = buggy.getScene();
     const bombs = scene.meshes.filter((v) => v.name === "Bomb");
