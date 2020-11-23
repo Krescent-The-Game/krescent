@@ -20,7 +20,7 @@
       >
         <Scene>
           <Property name="clearColor" :color="$color(0, 0, 0, 0.1)"></Property>
-          <!-- <Camera :target="buggy" type="follow"></Camera> -->
+          <Camera :target="buggy" type="follow"></Camera>
           <HemisphericLight :direction="[0, 5, -1]">
             <property name="intensity" :float="1"></property>
           </HemisphericLight>
@@ -85,7 +85,7 @@ export default Vue.extend({
     setTimeout(() => {
       clearInterval(this.loadingProgressTimer);
       this.$store.commit("planet/mutateShouldScore", true);
-    }, 1000);
+    }, 5000);
   },
   beforeDestroy() {
     clearInterval(this.loadingProgressTimer);
