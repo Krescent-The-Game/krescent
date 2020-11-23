@@ -1,7 +1,10 @@
 import * as BABYLON from "@babylonjs/core";
 import { Axis } from "@babylonjs/core";
 
-export const createBuggy = (handleIntersect) => async (buggy) => {
+export const createBuggy = (
+  handleIntersect,
+  handleIntersectHealthPowerUp
+) => async (buggy) => {
   const wheelMaterial = new BABYLON.StandardMaterial(
     "wheel_mat",
     buggy.getScene()
@@ -83,6 +86,15 @@ export const createBuggy = (handleIntersect) => async (buggy) => {
       if (bomb.intersectsMesh(buggy, false)) {
         bomb.dispose();
         handleIntersect();
+      }
+    });
+    const healthPowerUps = scene.meshes.filter(
+      (v) => v.name === "HealthPowerUp"
+    );
+    healthPowerUps.forEach((healthPowerUp) => {
+      if (healthPowerUp.intersectsMesh(buggy, false)) {
+        healthPowerUp.dispose();
+        handleIntersectHealthPowerUp();
       }
     });
   });

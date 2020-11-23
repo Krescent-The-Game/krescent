@@ -33,11 +33,15 @@ export default Vue.extend({
   },
   methods: {
     handleCreateBuggy(e) {
-      createBuggy(this.handleIntersect)(e);
+      createBuggy(this.handleIntersect, this.handleIntersectHealthPowerUp)(e);
     },
     handleIntersect() {
       this.$store.commit("enemy/decrementCount");
       this.$store.commit("stats/mutateHealth", -10);
+    },
+    handleIntersectHealthPowerUp() {
+      this.$store.commit("powerUp/decrementHealthCount");
+      this.$store.commit("stats/mutateHealth", +10);
     },
     handleIntersectWithBullet() {
       this.$store.commit("enemy/decrementCount");

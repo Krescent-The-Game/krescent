@@ -20,7 +20,7 @@
       >
         <Scene>
           <Property name="clearColor" :color="$color(0, 0, 0, 0.1)"></Property>
-          <Camera :target="buggy" type="follow"></Camera>
+          <!-- <Camera :target="buggy" type="follow"></Camera> -->
           <HemisphericLight :direction="[0, 5, -1]">
             <property name="intensity" :float="1"></property>
           </HemisphericLight>
@@ -28,6 +28,7 @@
           <Buggy v-model="buggy"></Buggy>
           <Planet></Planet>
           <Enemy></Enemy>
+          <PowerUp></PowerUp>
         </Scene>
       </div>
       <Stats></Stats>
@@ -43,12 +44,14 @@ import Buggy from "~/components/Buggy.vue";
 import Enemy from "~/components/Enemy.vue";
 import Stats from "~/components/Stats.vue";
 import Score from "~/components/Score.vue";
+import PowerUp from "~/components/PowerUp.vue";
 
 export default Vue.extend({
   components: {
     Planet,
     Buggy,
     Enemy,
+    PowerUp,
     Stats,
     Score,
   },
@@ -82,7 +85,7 @@ export default Vue.extend({
     setTimeout(() => {
       clearInterval(this.loadingProgressTimer);
       this.$store.commit("planet/mutateShouldScore", true);
-    }, 5000);
+    }, 1000);
   },
   beforeDestroy() {
     clearInterval(this.loadingProgressTimer);
