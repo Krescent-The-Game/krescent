@@ -54,6 +54,14 @@ export default {
       return this.$store.state.stats.ammo;
     },
   },
+  mounted() {
+    this.$store.watch(
+      () => this.$store.state.stats.health,
+      (health) => {
+        this.$store.commit("powerUp/setHealthChance", (100 - health) / 2);
+      }
+    );
+  },
   methods: {
     handleReloadAmmo() {
       this.$store.commit("stats/mutateAmmo", 20);

@@ -1,5 +1,7 @@
 <template>
-  <Entity v-model="enemy"> </Entity>
+  <Entity>
+    <Entity v-model="enemy"></Entity>
+  </Entity>
 </template>
 
 <script>
@@ -15,6 +17,7 @@ export default Vue.extend({
     };
   },
   mounted() {
+    this.$store.commit("enemy/reset");
     this.$store.watch(
       () => this.$store.state.planet.shouldScore,
       (shouldScore) => {
@@ -36,20 +39,21 @@ export default Vue.extend({
           this.$store.getters["enemy/getLimit"] &&
         this.$store.getters["enemy/getCount"] <= 20
       ) {
-        this.$store.commit("enemy/incrementCount");
-
         const enemy = BABYLON.MeshBuilder.CreateIcoSphere(
           "Bomb",
           { radiusX: 0.1, radiusY: 0.1, radiusZ: 0.1, subdivisions: 1.5 },
           this.enemy.getScene()
         );
         const buggy = this.enemy.getScene().getMeshByName("Buggy");
+        if (!buggy) {
+          return;
+        }
         enemy.position = new BABYLON.Vector3(
           3,
           buggy.position.y,
           buggy.position.z
         );
-        const enemyScale = randomWithin(0.8, 0.7);
+        const enemyScale = randomWithin(0.5, 0.4);
         enemy.scaling = new BABYLON.Vector3(enemyScale, enemyScale, enemyScale);
 
         const lavaMaterial = new BABYLON.StandardMaterial(
@@ -67,31 +71,52 @@ export default Vue.extend({
           BABYLON.Animation.ANIMATIONTYPE_FLOAT,
           BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
         );
+        const speed = this.$store.getters["enemy/getSpeed"];
         const Keys = [];
         Keys.push({
           frame: 0,
           value: enemy.position.x,
         });
         Keys.push({
+          frame: framerate,
+          value: enemy.position.x - speed / 2,
+        });
+        Keys.push({
           frame: 2 * framerate,
-          value: enemy.position.x - 3,
+          value: enemy.position.x - speed,
         });
         Keys.push({
           frame: 4 * framerate,
-          value: enemy.position.x - 6,
+          value: enemy.position.x - speed * 2,
+        });
+        Keys.push({
+          frame: 8 * framerate,
+          value: enemy.position.x - speed * 4,
+        });
+        Keys.push({
+          frame: 16 * framerate,
+          value: enemy.position.x - speed * 8,
         });
         animEnemy.setKeys(Keys);
+        const endEvent = new BABYLON.AnimationEvent(
+          16 * framerate,
+          function () {
+            if (
+              this.$store.getters["enemy/getCount"] >
+                this.$store.getters["enemy/getLimit"] &&
+              this.$store.getters["enemy/getCount"] > 10
+            ) {
+              enemy.dispose();
+              this.$store.commit("enemy/decrementCount");
+            }
+          },
+          true
+        );
+        animEnemy.addEvent(endEvent);
         enemy.animations = [];
         enemy.animations.push(animEnemy);
         this.enemy.getScene().beginAnimation(enemy, 0, 100, true);
-      }
-      if (
-        this.$store.getters["enemy/getCount"] >
-        this.$store.getters["enemy/getLimit"]
-      ) {
-        const bomb = this.enemy.getScene().getMeshByName("Bomb");
-        bomb.dispose();
-        this.$store.commit("enemy/decrementCount");
+        this.$store.commit("enemy/incrementCount");
       }
     },
   },

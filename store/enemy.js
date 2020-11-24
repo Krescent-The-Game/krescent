@@ -1,12 +1,14 @@
 export const state = () => ({
   enemyCount: 0,
   enemyLimit: 1,
+  enemySpeed: 0.5,
 });
 
 export const mutations = {
   reset(state) {
     state.enemyCount = 0;
     state.enemyLimit = 1;
+    state.enemySpeed = 0.5;
   },
   incrementCount(state) {
     state.enemyCount++;
@@ -23,6 +25,9 @@ export const mutations = {
   setLimit(state, number) {
     state.enemyLimit = number;
   },
+  setSpeed(state, number) {
+    state.enemySpeed = number;
+  },
 };
 
 export const getters = {
@@ -31,5 +36,8 @@ export const getters = {
   },
   getLimit: (state) => {
     return state.enemyLimit;
+  },
+  getSpeed: (state) => {
+    return state.enemySpeed;
   },
 };

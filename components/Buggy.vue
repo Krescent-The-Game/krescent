@@ -1,7 +1,6 @@
 <template>
   <Entity
     v-model="buggy"
-    name="Buggy"
     :position="position"
     :scaling="scaling"
     :rotation="rotation"
@@ -34,11 +33,18 @@ export default Vue.extend({
   },
   methods: {
     handleCreateBuggy(e) {
-      createBuggy(this.handleIntersect)(e);
+      createBuggy(this.handleIntersect, this.handleIntersectHealthPowerUp)(e);
     },
     handleIntersect() {
       this.$store.commit("enemy/decrementCount");
-      this.$store.commit("stats/mutateHealth", -5);
+      this.$store.commit("stats/mutateHealth", -10);
+    },
+    handleIntersectHealthPowerUp() {
+      this.$store.commit("powerUp/decrementHealthCount");
+      this.$store.commit("stats/mutateHealth", +10);
+    },
+    handleIntersectWithBullet() {
+      this.$store.commit("enemy/decrementCount");
     },
     handleJumpUp() {
       requestAnimationFrame(() => {
@@ -99,7 +105,7 @@ export default Vue.extend({
       }
       if (e.key === "Enter") {
         if (this.$store.state.stats.ammo > 0) {
-          createBullets(this.buggy);
+          createBullets(this.handleIntersectWithBullet)(this.buggy);
           this.$store.commit("stats/mutateAmmo", -1);
         }
       }

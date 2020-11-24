@@ -55,6 +55,10 @@ div {
   margin: 0;
 }
 
+div.nuxt__build_indicator {
+  height: unset;
+}
+
 .krs__container {
   margin: 0 auto;
   min-height: 100vh;

@@ -28,6 +28,7 @@
           <Buggy v-model="buggy"></Buggy>
           <Planet></Planet>
           <Enemy></Enemy>
+          <PowerUp></PowerUp>
         </Scene>
       </div>
       <Stats></Stats>
@@ -43,12 +44,14 @@ import Buggy from "~/components/Buggy.vue";
 import Enemy from "~/components/Enemy.vue";
 import Stats from "~/components/Stats.vue";
 import Score from "~/components/Score.vue";
+import PowerUp from "~/components/PowerUp.vue";
 
 export default Vue.extend({
   components: {
     Planet,
     Buggy,
     Enemy,
+    PowerUp,
     Stats,
     Score,
   },
@@ -74,7 +77,6 @@ export default Vue.extend({
     this.$store.commit("stats/resetHealth");
     this.$store.commit("stats/resetScore");
     this.$store.commit("stats/resetAmmo");
-    this.$store.commit("enemy/reset");
 
     this.loadingProgressTimer = setInterval(() => {
       this.loadingProgress += 20;
