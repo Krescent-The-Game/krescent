@@ -74,6 +74,7 @@ export default Vue.extend({
     },
   },
   mounted() {
+    document.documentElement.requestFullscreen();
     this.$store.commit("stats/resetHealth");
     this.$store.commit("stats/resetScore");
     this.$store.commit("stats/resetAmmo");

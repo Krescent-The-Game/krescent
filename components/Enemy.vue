@@ -63,59 +63,33 @@ export default Vue.extend({
         lavaMaterial.diffuseColor = new BABYLON.Color3(255, 0, 0);
         enemy.material = lavaMaterial;
 
-        const framerate = 10;
-        const animEnemy = new BABYLON.Animation(
-          "movingForward",
-          "position.x",
-          framerate,
-          BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-          BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
-        );
         const speed = this.$store.getters["enemy/getSpeed"];
-        const Keys = [];
-        Keys.push({
-          frame: 0,
-          value: enemy.position.x,
-        });
-        Keys.push({
-          frame: framerate,
-          value: enemy.position.x - speed / 2,
-        });
-        Keys.push({
-          frame: 2 * framerate,
-          value: enemy.position.x - speed,
-        });
-        Keys.push({
-          frame: 4 * framerate,
-          value: enemy.position.x - speed * 2,
-        });
-        Keys.push({
-          frame: 8 * framerate,
-          value: enemy.position.x - speed * 4,
-        });
-        Keys.push({
-          frame: 16 * framerate,
-          value: enemy.position.x - speed * 8,
-        });
-        animEnemy.setKeys(Keys);
-        const endEvent = new BABYLON.AnimationEvent(
-          16 * framerate,
-          function () {
-            if (
-              this.$store.getters["enemy/getCount"] >
-                this.$store.getters["enemy/getLimit"] &&
-              this.$store.getters["enemy/getCount"] > 10
-            ) {
-              enemy.dispose();
-              this.$store.commit("enemy/decrementCount");
-            }
-          },
-          true
+
+        const endEvent = () => {
+          if (
+            (this.$store.getters["enemy/getCount"] >
+              this.$store.getters["enemy/getLimit"] ||
+              this.$store.getters["enemy/getCount"] >= 20) &&
+            this.$store.getters["enemy/getCount"] > 10
+          ) {
+            enemy.dispose();
+            this.$store.commit("enemy/decrementCount");
+          }
+        };
+
+        BABYLON.Animation.CreateAndStartAnimation(
+          "enemyAnimation",
+          enemy,
+          "position.x",
+          speed,
+          50,
+          buggy.position.x + 5,
+          buggy.position.x - 5,
+          0,
+          null,
+          endEvent
         );
-        animEnemy.addEvent(endEvent);
-        enemy.animations = [];
-        enemy.animations.push(animEnemy);
-        this.enemy.getScene().beginAnimation(enemy, 0, 100, true);
+
         this.$store.commit("enemy/incrementCount");
       }
     },

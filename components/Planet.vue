@@ -2,20 +2,20 @@
   <Entity>
     <Cylinder
       v-model="planet"
-      :position="[0, -3.85, -13]"
+      :position="[0, -3.85, -12.5]"
       :scaling="[6.8, 6.8, 6.8]"
       :rotation="axis"
+      :options="options"
     >
-      <Material>
-        <Texture :src="require('assets/moon-texture.png')"> </Texture>
+      <Material diffuse="#808080" :roughness="5.0" :metallic="0">
+        <Texture :src="require('~/assets/moon-texture.png')"></Texture>
       </Material>
     </Cylinder>
   </Entity>
 </template>
 
 <script>
-import { Axis } from "@babylonjs/core";
-import { createClusters } from "../utils/Rock.helper";
+import * as BABYLON from "@babylonjs/core";
 
 export default {
   name: "Planet",
@@ -23,8 +23,13 @@ export default {
   data() {
     return {
       planet: null,
+      rotatePlanetTimer: null,
       axis: [-Math.PI / 2, 0, 0],
-      clusters: createClusters(),
+      options: {
+        height: 2,
+        tessellation: 20,
+        faceUV: [],
+      },
     };
   },
   mounted() {
@@ -52,7 +57,8 @@ export default {
   },
   methods: {
     rotatePlanet() {
-      this.planet.rotate(Axis.Y, -0.01);
+      const speed = -this.$store.state.stats.score / 10000;
+      this.planet.rotate(BABYLON.Axis.Y, speed < -0.04 ? -0.04 : speed);
     },
     scoreCount() {
       if (window.scoreHasStarted) {

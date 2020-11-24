@@ -14,6 +14,7 @@ export default Vue.extend({
   data() {
     return {
       powerUp: null,
+      createNewPowerUpTimer: null,
     };
   },
   mounted() {
@@ -44,9 +45,9 @@ export default Vue.extend({
         this.$store.getters["powerUp/getHealthCount"] <
         this.$store.getters["powerUp/getHealthLimit"]
       ) {
-        const powerUp = BABYLON.MeshBuilder.CreateIcoSphere(
+        const powerUp = BABYLON.MeshBuilder.CreatePolyhedron(
           "HealthPowerUp",
-          { radiusX: 0.1, radiusY: 0.1, radiusZ: 0.1, subdivisions: 1.5 },
+          { type: 1, size: 0.1 },
           this.powerUp.getScene()
         );
         const buggy = this.powerUp.getScene().getMeshByName("Buggy");
@@ -55,8 +56,13 @@ export default Vue.extend({
         }
         powerUp.position = new BABYLON.Vector3(
           3,
-          buggy.position.y,
-          buggy.position.z
+          buggy.position.y + randomWithin(0.1, 0),
+          buggy.position.z +
+            (buggy.position.z < -7.8
+              ? randomWithin(0.5, 0)
+              : buggy.position.z >= -7.8
+              ? randomWithin(-0.5, 0)
+              : 0)
         );
         const powerUpScale = randomWithin(0.5, 0.4);
         powerUp.scaling = new BABYLON.Vector3(
@@ -116,7 +122,7 @@ export default Vue.extend({
         animPowerUp.addEvent(endEvent);
         powerUp.animations = [];
         powerUp.animations.push(animPowerUp);
-        this.powerUp.getScene().beginAnimation(powerUp, 0, 100, true);
+        this.powerUp.getScene().beginAnimation(powerUp, 0, 8 * framerate, true);
         this.$store.commit("powerUp/incrementHealthCount");
       }
     },
