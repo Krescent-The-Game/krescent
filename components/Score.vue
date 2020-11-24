@@ -29,17 +29,9 @@ export default {
       (score) => {
         this.$store.commit("enemy/setLimit", Math.floor(score / 30));
         if (score < 100) {
-          this.$store.commit("enemy/setSpeed", 2);
-        } else if (score > 200 && score < 300) {
+          this.$store.commit("enemy/setSpeed", 5);
+        } else {
           this.$store.commit("enemy/setSpeed", Math.floor(score / 50));
-        } else if (score < 400) {
-          this.$store.commit("enemy/setSpeed", Math.floor(score / 70));
-        } else if (score < 500) {
-          this.$store.commit("enemy/setSpeed", Math.floor(score / 90));
-        } else if (score < 600) {
-          this.$store.commit("enemy/setSpeed", Math.floor(score / 110));
-        } else if (score < 800) {
-          this.$store.commit("enemy/setSpeed", Math.floor(score / 130));
         }
       }
     );

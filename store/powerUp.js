@@ -13,7 +13,9 @@ export const mutations = {
     state.healthPowerUpChance = 0;
   },
   incrementHealthCount(state) {
-    state.healthPowerUpCount++;
+    if (state.healthPowerUpCount < 10) {
+      state.healthPowerUpCount++;
+    }
   },
   incrementHealthLimit(state) {
     state.healthPowerUpLimit++;

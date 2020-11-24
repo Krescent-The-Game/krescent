@@ -10,7 +10,7 @@ export const createBuggy = (
     buggy.getScene()
   );
   const wheelTexture = new BABYLON.Texture(
-    "http://i.imgur.com/ZUWbT6L.png",
+    "/assets/buggy/wheel.png",
     buggy.getScene()
   );
   wheelMaterial.diffuseTexture = wheelTexture;
@@ -83,7 +83,7 @@ export const createBuggy = (
     const scene = buggy.getScene();
     const bombs = scene.meshes.filter((v) => v.name === "Bomb");
     bombs.forEach((bomb) => {
-      if (bomb.intersectsMesh(buggy, false)) {
+      if (bomb.intersectsMesh(buggy, true, true)) {
         bomb.dispose();
         handleIntersect();
       }
@@ -92,7 +92,7 @@ export const createBuggy = (
       (v) => v.name === "HealthPowerUp"
     );
     healthPowerUps.forEach((healthPowerUp) => {
-      if (healthPowerUp.intersectsMesh(buggy, false)) {
+      if (healthPowerUp.intersectsMesh(buggy, true, true)) {
         healthPowerUp.dispose();
         handleIntersectHealthPowerUp();
       }
