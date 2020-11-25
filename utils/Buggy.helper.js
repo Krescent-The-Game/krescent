@@ -5,21 +5,16 @@ export const createBuggy = (
   handleIntersect,
   handleIntersectHealthPowerUp
 ) => async (buggy) => {
-  const wheelMaterial = new BABYLON.StandardMaterial(
-    "wheel_mat",
-    buggy.getScene()
-  );
-  const wheelTexture = new BABYLON.Texture(
-    "/assets/buggy/wheel.png",
-    buggy.getScene()
-  );
+  const scene = buggy.getScene();
+  const wheelMaterial = new BABYLON.StandardMaterial("wheel_mat", scene);
+  const wheelTexture = new BABYLON.Texture("/assets/buggy/wheel.png", scene);
   wheelMaterial.diffuseTexture = wheelTexture;
 
   const imported = await BABYLON.SceneLoader.ImportMeshAsync(
     "",
     "/assets/buggy/",
     "scene.gltf",
-    buggy.getScene()
+    scene
   );
   const wheels = [];
 
@@ -45,7 +40,7 @@ export const createBuggy = (
       faceColors,
       faceUV,
     },
-    buggy.getScene()
+    scene
   );
   wheelFI.material = wheelMaterial;
   wheelFI.rotate(BABYLON.Axis.Z, Math.PI / 2, BABYLON.Space.WORLD);
@@ -79,8 +74,7 @@ export const createBuggy = (
     });
   };
   buggy.name = "Buggy";
-  buggy.getScene().registerBeforeRender(() => {
-    const scene = buggy.getScene();
+  scene.registerBeforeRender(() => {
     const bombs = scene.meshes.filter((v) => v.name === "Bomb");
     bombs.forEach((bomb) => {
       if (bomb.intersectsMesh(buggy, true, true)) {
