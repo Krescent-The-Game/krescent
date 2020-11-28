@@ -19,6 +19,7 @@ export default Vue.extend({
       position: [-0.2, -0.4, -7.5],
       scaling: [0.01, 0.01, 0.01],
       rotation: [-Math.PI / 2, -Math.PI / 2, 0],
+      keyState: {},
       buggy: null,
     };
   },
@@ -27,9 +28,17 @@ export default Vue.extend({
   },
   mounted() {
     addEventListener("keydown", this.handleMouseDown);
+    addEventListener("keydown", this.handleKeyDown);
+    addEventListener("keyup", this.handleKeyUp);
+    this.buggyMovement = setInterval(() => {
+      this.buggyMovementLoop();
+    }, 100);
   },
   beforeDestroy() {
     removeEventListener("keydown", this.handleMouseDown);
+    removeEventListener("keydown", this.handleKeyDown);
+    removeEventListener("keyup", this.handleKeyUp);
+    clearInterval(this.buggyMovement);
   },
   methods: {
     handleCreateBuggy(e) {
@@ -66,6 +75,46 @@ export default Vue.extend({
         }
       });
     },
+    handleKeyDown(e) {
+      this.keyState[e.keyCode || e.which] = true;
+    },
+    handleKeyUp(e) {
+      this.keyState[e.keyCode || e.which] = false;
+    },
+    buggyMovementLoop() {
+      // left
+      if (this.keyState[65] || this.keyState[37]) {
+        if (this.buggy.position.x >= -0.5) {
+          requestAnimationFrame(() => {
+            this.buggy.position.x -= 0.1;
+          });
+        }
+      }
+      // right
+      if (this.keyState[68] || this.keyState[39]) {
+        if (this.buggy.position.x <= 0.2) {
+          requestAnimationFrame(() => {
+            this.buggy.position.x += 0.1;
+          });
+        }
+      }
+      // up
+      if (this.keyState[87] || this.keyState[38]) {
+        if (this.buggy.position.z <= -7) {
+          requestAnimationFrame(() => {
+            this.buggy.position.z += 0.1;
+          });
+        }
+      }
+      // down
+      if (this.keyState[83] || this.keyState[40]) {
+        if (this.buggy.position.z >= -8.5) {
+          requestAnimationFrame(() => {
+            this.buggy.position.z -= 0.1;
+          });
+        }
+      }
+    },
     handleMouseDown(e) {
       if (e.code === "Space") {
         if (this.isJumping) {
@@ -74,34 +123,6 @@ export default Vue.extend({
         this.isJumping = true;
         this.handleJumpUp();
         this.upTimer = setInterval(this.handleJumpUp, 100);
-      }
-      if (e.key === "ArrowRight" || e.key === "d") {
-        if (this.buggy.position.x <= 0.2) {
-          requestAnimationFrame(() => {
-            this.buggy.position.x += 0.1;
-          });
-        }
-      }
-      if (e.key === "ArrowLeft" || e.key === "a") {
-        if (this.buggy.position.x >= -0.2) {
-          requestAnimationFrame(() => {
-            this.buggy.position.x -= 0.1;
-          });
-        }
-      }
-      if (e.key === "ArrowUp" || e.key === "w") {
-        if (this.buggy.position.z <= -7) {
-          requestAnimationFrame(() => {
-            this.buggy.position.z += 0.1;
-          });
-        }
-      }
-      if (e.key === "ArrowDown" || e.key === "s") {
-        if (this.buggy.position.z >= -8.5) {
-          requestAnimationFrame(() => {
-            this.buggy.position.z -= 0.1;
-          });
-        }
       }
       if (e.key === "Enter") {
         if (this.$store.state.stats.ammo > 0) {
