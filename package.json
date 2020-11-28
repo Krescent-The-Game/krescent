@@ -1,20 +1,29 @@
 {
-  "name": "krescent-game",
+  "name": "Krescent",
   "version": "1.0.0",
   "private": true,
+  "main": "electron.js",
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "electron-forge start",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "lint": "yarn lint:js"
+    "lint": "yarn lint:js",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
-  "dependencies": {},
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  },
   "devDependencies": {
-    "vue-babylonjs": "1.0.0-beta.7",
     "@babylonjs/core": "^4.1.0",
     "@babylonjs/loaders": "^4.1.0",
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/eslint-config": "^3.1.0",
     "@nuxtjs/eslint-module": "^2.0.0",
@@ -22,6 +31,7 @@
     "ant-design-vue": "^1.6.5",
     "babel-eslint": "^10.1.0",
     "core-js": "^3.6.5",
+    "electron": "11.0.3",
     "eslint": "^7.10.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-nuxt": "^1.0.0",
@@ -29,6 +39,10 @@
     "less": "^3.12.2",
     "less-loader": "^7.0.2",
     "nuxt": "^2.14.6",
-    "prettier": "^2.1.2"
+    "prettier": "^2.1.2",
+    "vue-babylonjs": "1.0.0-beta.7"
+  },
+  "config": {
+    "forge": "./config.forge.js"
   }
 }
