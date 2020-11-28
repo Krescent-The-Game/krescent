@@ -5,21 +5,55 @@ export const createBuggy = (
   handleIntersect,
   handleIntersectHealthPowerUp
 ) => async (buggy) => {
-  const wheelMaterial = new BABYLON.StandardMaterial(
-    "wheel_mat",
-    buggy.getScene()
+  const scene = buggy.getScene();
+  const planeMaterial = new BABYLON.Material();
+  planeMaterial.alpha = 0;
+
+  const planeFront = BABYLON.MeshBuilder.CreatePlane(
+    "plane",
+    {
+      width: 30,
+      height: 30,
+      size: 30,
+    },
+    scene
   );
-  const wheelTexture = new BABYLON.Texture(
-    "/assets/buggy/wheel.png",
-    buggy.getScene()
+  planeFront.parent = buggy;
+  planeFront.position = new BABYLON.Vector3(
+    buggy.position.x,
+    buggy.position.y + 20,
+    buggy.position.z
   );
+  planeFront.rotate(BABYLON.Axis.X, Math.PI / 2);
+  planeFront.material = planeMaterial;
+
+  const planeTop = BABYLON.MeshBuilder.CreatePlane(
+    "plane",
+    {
+      width: 30,
+      height: 30,
+      size: 30,
+    },
+    scene
+  );
+  planeTop.parent = buggy;
+  planeTop.position = new BABYLON.Vector3(
+    buggy.position.x,
+    buggy.position.y,
+    buggy.position.z + 20
+  );
+  planeTop.rotate(BABYLON.Axis.Y, Math.PI);
+  planeTop.material = planeMaterial;
+
+  const wheelMaterial = new BABYLON.StandardMaterial("wheel_mat", scene);
+  const wheelTexture = new BABYLON.Texture("/assets/buggy/wheel.png", scene);
   wheelMaterial.diffuseTexture = wheelTexture;
 
   const imported = await BABYLON.SceneLoader.ImportMeshAsync(
     "",
     "/assets/buggy/",
     "scene.gltf",
-    buggy.getScene()
+    scene
   );
   const wheels = [];
 
@@ -45,7 +79,7 @@ export const createBuggy = (
       faceColors,
       faceUV,
     },
-    buggy.getScene()
+    scene
   );
   wheelFI.material = wheelMaterial;
   wheelFI.rotate(BABYLON.Axis.Z, Math.PI / 2, BABYLON.Space.WORLD);
@@ -79,11 +113,13 @@ export const createBuggy = (
     });
   };
   buggy.name = "Buggy";
-  buggy.getScene().registerBeforeRender(() => {
-    const scene = buggy.getScene();
+  scene.registerBeforeRender(() => {
     const bombs = scene.meshes.filter((v) => v.name === "Bomb");
     bombs.forEach((bomb) => {
-      if (bomb.intersectsMesh(buggy, true, true)) {
+      if (
+        bomb.intersectsMesh(planeFront, true, true) ||
+        bomb.intersectsMesh(planeTop, true, true)
+      ) {
         bomb.dispose();
         handleIntersect();
       }
@@ -92,7 +128,10 @@ export const createBuggy = (
       (v) => v.name === "HealthPowerUp"
     );
     healthPowerUps.forEach((healthPowerUp) => {
-      if (healthPowerUp.intersectsMesh(buggy, true, true)) {
+      if (
+        healthPowerUp.intersectsMesh(planeFront, true, true) ||
+        healthPowerUp.intersectsMesh(planeTop, true, true)
+      ) {
         healthPowerUp.dispose();
         handleIntersectHealthPowerUp();
       }
