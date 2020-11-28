@@ -73,7 +73,7 @@ export default Vue.extend({
         pivot.position = cor;
         enemy.parent = pivot;
         let totalAngleTravelled = 0.0;
-        
+
         this.enemy.getScene().registerAfterRender(() => {
           pivot.rotate(axis, angle, BABYLON.Space.WORLD);
           totalAngleTravelled = totalAngleTravelled + angle;
