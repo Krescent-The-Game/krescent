@@ -17,7 +17,7 @@ module.exports = {
       platforms: ["darwin"],
       config: {
         packagerConfig: {
-          icon: path.resolve(__dirname, "/favicon.icns"),
+          icon: path.resolve(__dirname, "favicon.icns"),
         },
       },
     },
