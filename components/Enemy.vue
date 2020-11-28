@@ -48,8 +48,9 @@ export default Vue.extend({
         if (!buggy) {
           return;
         }
+        // TODO:// Calculate and randomises position
         enemy.position = new BABYLON.Vector3(
-          3,
+          3.4,
           buggy.position.y,
           buggy.position.z
         );
@@ -63,33 +64,50 @@ export default Vue.extend({
         lavaMaterial.diffuseColor = new BABYLON.Color3(255, 0, 0);
         enemy.material = lavaMaterial;
 
-        const speed = this.$store.getters["enemy/getSpeed"];
+        // const speed = this.$store.getters["enemy/getSpeed"];
 
-        const endEvent = () => {
-          if (
-            (this.$store.getters["enemy/getCount"] >
-              this.$store.getters["enemy/getLimit"] ||
-              this.$store.getters["enemy/getCount"] >= 20) &&
-            this.$store.getters["enemy/getCount"] > 10
-          ) {
+        // const endEvent = () => {
+        //   if (
+        //     (this.$store.getters["enemy/getCount"] >
+        //       this.$store.getters["enemy/getLimit"] ||
+        //       this.$store.getters["enemy/getCount"] >= 20) &&
+        //     this.$store.getters["enemy/getCount"] > 10
+        //   ) {
+        //     enemy.dispose();
+        //     this.$store.commit("enemy/decrementCount");
+        //   }
+        // };
+
+        // BABYLON.Animation.CreateAndStartAnimation(
+        //   "enemyAnimation",
+        //   enemy,
+        //   "position.x",
+        //   speed,
+        //   50,
+        //   buggy.position.x + 5,
+        //   buggy.position.x - 5,
+        //   0,
+        //   null,
+        //   endEvent
+        // );
+
+        const pivot = new BABYLON.TransformNode("root");
+        const cor = new BABYLON.Vector3(0, -3.85, 0);
+        const axis = new BABYLON.Vector3(0, 0, 1);
+        const speed = this.$store.getters["enemy/getSpeed"];
+        console.log(speed);
+        const angle = speed * 0.001;
+        pivot.position = cor;
+        enemy.parent = pivot;
+        let totalAngleTravelled = 0.0;
+        this.enemy.getScene().registerAfterRender(() => {
+          pivot.rotate(axis, angle, BABYLON.Space.WORLD);
+          totalAngleTravelled = totalAngleTravelled + angle;
+          if (totalAngleTravelled > 3) {
             enemy.dispose();
             this.$store.commit("enemy/decrementCount");
           }
-        };
-
-        BABYLON.Animation.CreateAndStartAnimation(
-          "enemyAnimation",
-          enemy,
-          "position.x",
-          speed,
-          50,
-          buggy.position.x + 5,
-          buggy.position.x - 5,
-          0,
-          null,
-          endEvent
-        );
-
+        });
         this.$store.commit("enemy/incrementCount");
       }
     },

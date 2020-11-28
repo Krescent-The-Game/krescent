@@ -31,7 +31,7 @@ export default {
         if (score < 100) {
           this.$store.commit("enemy/setSpeed", 5);
         } else {
-          this.$store.commit("enemy/setSpeed", Math.floor(score / 50));
+          this.$store.commit("enemy/setSpeed", Math.floor(score / 50) + 5);
         }
       }
     );
