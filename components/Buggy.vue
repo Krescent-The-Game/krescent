@@ -46,7 +46,7 @@ export default Vue.extend({
     },
     handleIntersect() {
       this.$store.commit("enemy/decrementCount");
-      this.$store.commit("stats/mutateHealth", -5);
+      this.$store.commit("stats/mutateHealth", -10);
     },
     handleIntersectHealthPowerUp() {
       this.$store.commit("powerUp/decrementHealthCount");
