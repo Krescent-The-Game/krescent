@@ -81,6 +81,7 @@ export const createBuggy = (
     },
     scene
   );
+
   wheelFI.material = wheelMaterial;
   wheelFI.rotate(BABYLON.Axis.Z, Math.PI / 2, BABYLON.Space.WORLD);
   wheelFI.parent = buggy;
@@ -102,6 +103,19 @@ export const createBuggy = (
   wheels.push(wheelRO);
   wheels.push(wheelRI);
   wheels.push(wheelFO);
+
+  const childMeshes = buggy.getChildMeshes();
+  let min = childMeshes[0].getBoundingInfo().boundingBox.minimumWorld;
+  let max = childMeshes[0].getBoundingInfo().boundingBox.maximumWorld;
+  for (let i = 0; i < childMeshes.length; i++) {
+    const meshMin = childMeshes[i].getBoundingInfo().boundingBox.minimumWorld;
+    const meshMax = childMeshes[i].getBoundingInfo().boundingBox.maximumWorld;
+    min = BABYLON.Vector3.Minimize(min, meshMin);
+    max = BABYLON.Vector3.Maximize(max, meshMax);
+  }
+  buggy.position = new BABYLON.Vector3(-0.2, -0.4, -7.5);
+  buggy.setBoundingInfo(new BABYLON.BoundingInfo(min, max));
+  buggy.showBoundingBox = true;
 
   setInterval(() => {
     requestAnimationFrame(spinWheel);
