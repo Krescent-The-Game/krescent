@@ -61,7 +61,7 @@ export default Vue.extend({
           this.buggy.position.y += 0.2;
         } else {
           clearInterval(this.upTimer);
-          this.downTimer = setInterval(this.handleJumpDown, 60);
+          this.downTimer = setInterval(this.handleJumpDown, 100);
         }
       });
     },
