@@ -41,16 +41,16 @@ export default Vue.extend({
       ) {
         const enemy = BABYLON.MeshBuilder.CreateIcoSphere(
           "Bomb",
-          { radiusX: 0.1, radiusY: 0.1, radiusZ: 0.1, subdivisions: 1.5 },
+          { radiusX: 0.15, radiusY: 0.15, radiusZ: 0.15, subdivisions: 1.5 },
           this.enemy.getScene()
         );
         const buggy = this.enemy.getScene().getMeshByName("Buggy");
         if (!buggy) {
           return;
         }
-        // TODO:// Calculate and randomises position
+
         enemy.position = new BABYLON.Vector3(
-          3.4,
+          3.45 + buggy.position.y - -0.4,
           buggy.position.y,
           buggy.position.z
         );
@@ -68,7 +68,6 @@ export default Vue.extend({
         const cor = new BABYLON.Vector3(0, -3.85, 0);
         const axis = new BABYLON.Vector3(0, 0, 1);
         const speed = this.$store.getters["enemy/getSpeed"];
-
         const angle = speed * 0.001;
         pivot.position = cor;
         enemy.parent = pivot;
