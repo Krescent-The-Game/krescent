@@ -58,4 +58,15 @@ export default {
     extractCSS: process.env.NODE_ENV === "production",
     optimizeCSS: process.env.NODE_ENV === "production",
   },
+  pwa: {
+    meta: {
+      title: "Krescent",
+      author: "m3yevn and kaichie",
+    },
+    manifest: {
+      name: "Krescent",
+      short_name: "Krescent",
+      lang: "en",
+    },
+  },
 };
