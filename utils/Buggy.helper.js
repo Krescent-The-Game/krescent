@@ -6,44 +6,52 @@ export const createBuggy = (
   handleIntersectHealthPowerUp
 ) => async (buggy) => {
   const scene = buggy.getScene();
-  const planeMaterial = new BABYLON.Material();
-  planeMaterial.alpha = 0;
 
-  const planeFront = BABYLON.MeshBuilder.CreatePlane(
-    "plane",
-    {
-      width: 30,
-      height: 30,
-      size: 30,
-    },
+  const light = new BABYLON.SpotLight(
+    "spotLight",
+    new BABYLON.Vector3(0, 30, -10),
+    new BABYLON.Vector3(0, -1, 0),
+    Math.PI / 3,
+    2,
     scene
   );
-  planeFront.parent = buggy;
-  planeFront.position = new BABYLON.Vector3(
-    buggy.position.x,
-    buggy.position.y + 20,
-    buggy.position.z
-  );
-  planeFront.rotate(BABYLON.Axis.X, Math.PI / 2);
-  planeFront.material = planeMaterial;
+  light.diffuse = new BABYLON.Color3(255, 255, 255);
 
-  const planeTop = BABYLON.MeshBuilder.CreatePlane(
-    "plane",
-    {
-      width: 30,
-      height: 30,
-      size: 30,
-    },
-    scene
-  );
-  planeTop.parent = buggy;
-  planeTop.position = new BABYLON.Vector3(
-    buggy.position.x,
-    buggy.position.y,
-    buggy.position.z + 20
-  );
-  planeTop.rotate(BABYLON.Axis.Y, Math.PI);
-  planeTop.material = planeMaterial;
+  const flashRed = () => {
+    const redAnimation = new BABYLON.Animation(
+      "redAnimation",
+      "diffuse",
+      10,
+      BABYLON.Animation.ANIMATIONTYPE_COLOR3,
+      BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
+    );
+    const keys = [
+      { frame: 0, value: new BABYLON.Color3(255, 0, 0) },
+      { frame: 7.5, value: new BABYLON.Color3(255, 0, 0) },
+      { frame: 15, value: new BABYLON.Color3(255, 255, 255) },
+    ];
+    // assign keyframes
+    redAnimation.setKeys(keys);
+    scene.beginDirectAnimation(light, [redAnimation], 0, 15, false, 1);
+  };
+
+  const flashGreen = () => {
+    const greenAnimation = new BABYLON.Animation(
+      "greenAnimation",
+      "diffuse",
+      10,
+      BABYLON.Animation.ANIMATIONTYPE_COLOR3,
+      BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
+    );
+    const keys = [
+      { frame: 0, value: new BABYLON.Color3(0, 255, 0) },
+      { frame: 10, value: new BABYLON.Color3(0, 255, 0) },
+      { frame: 20, value: new BABYLON.Color3(255, 255, 255) },
+    ];
+    // assign keyframes
+    greenAnimation.setKeys(keys);
+    scene.beginDirectAnimation(light, [greenAnimation], 0, 20, false, 1);
+  };
 
   const wheelMaterial = new BABYLON.StandardMaterial("wheel_mat", scene);
   const wheelTexture = new BABYLON.Texture("/assets/buggy/wheel.png", scene);
@@ -85,19 +93,19 @@ export const createBuggy = (
   wheelFI.material = wheelMaterial;
   wheelFI.rotate(BABYLON.Axis.Z, Math.PI / 2, BABYLON.Space.WORLD);
   wheelFI.parent = buggy;
+  wheelFI.position = new BABYLON.Vector3(-16, 19, -2);
 
   const wheelFO = wheelFI.createInstance("FO");
   wheelFO.parent = buggy;
-  wheelFO.position = new BABYLON.Vector3(12, 19, -2);
+  wheelFO.position = new BABYLON.Vector3(16, 19, -2);
 
   const wheelRI = wheelFI.createInstance("RI");
   wheelRI.parent = buggy;
-  wheelRI.position = new BABYLON.Vector3(12, -14, -2);
+  wheelRI.position = new BABYLON.Vector3(16, -14, -2);
 
   const wheelRO = wheelFI.createInstance("RO");
   wheelRO.parent = buggy;
-  wheelRO.position = new BABYLON.Vector3(-12, -14, -2);
-  wheelFI.position = new BABYLON.Vector3(-12, 19, -2);
+  wheelRO.position = new BABYLON.Vector3(-16, -14, -2);
 
   wheels.push(wheelFI);
   wheels.push(wheelRO);
@@ -107,12 +115,14 @@ export const createBuggy = (
   const childMeshes = buggy.getChildMeshes();
   let min = childMeshes[0].getBoundingInfo().boundingBox.minimumWorld;
   let max = childMeshes[0].getBoundingInfo().boundingBox.maximumWorld;
+
   for (let i = 0; i < childMeshes.length; i++) {
     const meshMin = childMeshes[i].getBoundingInfo().boundingBox.minimumWorld;
     const meshMax = childMeshes[i].getBoundingInfo().boundingBox.maximumWorld;
     min = BABYLON.Vector3.Minimize(min, meshMin);
     max = BABYLON.Vector3.Maximize(max, meshMax);
   }
+
   buggy.position = new BABYLON.Vector3(-0.2, -0.4, -7.5);
   buggy.setBoundingInfo(new BABYLON.BoundingInfo(min, max));
   buggy.showBoundingBox = true;
@@ -130,10 +140,8 @@ export const createBuggy = (
   scene.registerBeforeRender(() => {
     const bombs = scene.meshes.filter((v) => v.name === "Bomb");
     bombs.forEach((bomb) => {
-      if (
-        bomb.intersectsMesh(planeFront, true, true) ||
-        bomb.intersectsMesh(planeTop, true, true)
-      ) {
+      if (bomb.intersectsMesh(buggy, true, true)) {
+        flashRed();
         bomb.dispose();
         handleIntersect();
       }
@@ -142,10 +150,8 @@ export const createBuggy = (
       (v) => v.name === "HealthPowerUp"
     );
     healthPowerUps.forEach((healthPowerUp) => {
-      if (
-        healthPowerUp.intersectsMesh(planeFront, true, true) ||
-        healthPowerUp.intersectsMesh(planeTop, true, true)
-      ) {
+      if (healthPowerUp.intersectsMesh(buggy, true, true)) {
+        flashGreen();
         healthPowerUp.dispose();
         handleIntersectHealthPowerUp();
       }
