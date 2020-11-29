@@ -2,6 +2,11 @@
   "name": "Krescent",
   "version": "1.0.0",
   "private": true,
+  "authors": [
+    "m3yevn",
+    "kaichie"
+  ],
+  "description": "A moonshot endless running game",
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
