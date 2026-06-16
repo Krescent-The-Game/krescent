@@ -6,6 +6,6 @@
   },
   "scripts": {
     "build:play": "node scripts/build-play.mjs",
-    "build": "npm run build:play"
+    "build": "node -e \"console.log('static public/ — run npm run build:play locally to refresh Nuxt export')\""
   }
 }
