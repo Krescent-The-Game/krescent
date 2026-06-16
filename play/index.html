@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Krescent — Play</title>
+    <meta name="description" content="Krescent moon buggy runner — BabylonJS 7 playable demo." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { width: 100%; height: 100%; overflow: hidden; background: #050510; color: #e2e8f0; font-family: system-ui, sans-serif; }
+      #ui {
+        position: fixed; inset: 0; pointer-events: none; z-index: 10;
+        display: flex; flex-direction: column; justify-content: space-between; padding: 12px 16px;
+      }
+      #hud { display: flex; gap: 16px; font-size: 14px; font-weight: 600; }
+      #hud span { background: rgba(5,5,16,.75); padding: 6px 10px; border-radius: 6px; }
+      #overlay {
+        position: fixed; inset: 0; display: grid; place-items: center;
+        background: rgba(5,5,16,.88); z-index: 20; text-align: center; padding: 24px;
+      }
+      #overlay.hidden { display: none; }
+      #overlay h1 { font-size: clamp(1.5rem, 5vw, 2.25rem); margin-bottom: 8px; color: #a78bfa; }
+      #overlay p { color: #94a3b8; max-width: 28rem; line-height: 1.5; margin-bottom: 16px; }
+      #overlay kbd { background: #1e293b; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
+      #startBtn {
+        pointer-events: auto; cursor: pointer; border: none; border-radius: 8px;
+        padding: 12px 28px; font-size: 1rem; font-weight: 600;
+        background: linear-gradient(135deg, #7c3aed, #22d3ee); color: #fff;
+      }
+      #startBtn:hover { filter: brightness(1.08); }
+      canvas { touch-action: none; display: block; width: 100%; height: 100%; }
+      a.back { pointer-events: auto; color: #22d3ee; font-size: 0.85rem; text-decoration: none; }
+      a.back:hover { text-decoration: underline; }
+    </style>
+  </head>
+  <body>
+    <div id="overlay">
+      <div>
+        <h1>KRESCENT</h1>
+        <p>Moon buggy endless runner — GitHub Game Off 2020, reborn with BabylonJS 7 + Vite.</p>
+        <p><kbd>WASD</kbd> / arrows to drive · <kbd>Space</kbd> shoot · Dodge <span style="color:#f87171">red</span> rocks · Collect <span style="color:#4ade80">green</span> crystals</p>
+        <button id="startBtn" type="button">Launch mission</button>
+        <p style="margin-top:16px"><a class="back" href="/">← Back to landing</a></p>
+      </div>
+    </div>
+    <div id="ui">
+      <div id="hud">
+        <span>Score: <strong id="score">0</strong></span>
+        <span>Health: <strong id="health">100</strong></span>
+      </div>
+      <a class="back" href="/">Landing</a>
+    </div>
+    <canvas id="game"></canvas>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

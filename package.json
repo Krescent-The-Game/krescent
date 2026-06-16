@@ -1,0 +1,8 @@
+{
+  "name": "krescent",
+  "private": true,
+  "scripts": {
+    "build:play": "npm install --prefix play && npm run build --prefix play",
+    "build": "npm run build:play"
+  }
+}
