@@ -4,11 +4,18 @@ export default {
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: "Krescent The Game",
+    title: "Krescent — Moonshot endless runner",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "" },
+      {
+        hid: "description",
+        name: "description",
+        content:
+          "Krescent is a GitHub Game Off 2020 moon buggy endless runner — Nuxt 2 + BabylonJS WebGL. Play in the browser. Eternal Flame rebirth by Kevin Moe Myint Myat.",
+      },
+      { name: "author", content: "Kevin Moe Myint Myat" },
+      { name: "theme-color", content: "#0a0a0a" },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },

@@ -1,0 +1,9 @@
+{
+  "buildCommand": "npm install --legacy-peer-deps && npm run generate",
+  "outputDirectory": "dist",
+  "framework": null,
+  "rewrites": [
+    { "source": "/play", "destination": "/game/index.html" },
+    { "source": "/play/:path*", "destination": "/game/:path*" }
+  ]
+}

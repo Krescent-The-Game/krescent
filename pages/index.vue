@@ -1,7 +1,8 @@
 <template>
   <div class="krs__container krs__logo">
-    <h1 class="krs__title">Krescent</h1>
-    <h2></h2>
+          <span class="version-badge">Eternal Flame · Game Off 2020</span>
+          <h1 class="krs__title">Krescent</h1>
+          <h2>Moonshot endless runner</h2>
     <div class="krs__home_buttons">
       <a-button type="primary"
         ><NuxtLink to="/game"> Play! </NuxtLink></a-button
