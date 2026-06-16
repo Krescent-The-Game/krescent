@@ -2,7 +2,7 @@
   "name": "krescent",
   "private": true,
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   },
   "scripts": {
     "build:play": "node scripts/build-play.mjs",

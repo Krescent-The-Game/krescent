@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "npm run build:play",
   "outputDirectory": "public",
   "framework": null,
   "rewrites": [
