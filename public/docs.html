@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Krescent — Docs</title>
+    <meta
+      name="description"
+      content="Krescent controls, local development, and stack — moon buggy endless runner for GitHub Game Off 2020."
+    />
+    <link rel="canonical" href="https://krescent.vercel.app/docs" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="/" class="logo">
+          <span>🌙</span>
+          <span class="logo-text">Kre<strong>scent</strong></span>
+        </a>
+        <nav class="nav">
+          <a href="/">Home</a>
+          <a href="https://github.com/Krescent-The-Game/krescent" rel="noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
+    <main class="docs-main">
+      <div class="container">
+        <h1>Documentation</h1>
+        <p>Moon buggy endless runner · GitHub Game Off 2020 · Eternal Flame rebirth</p>
+
+        <h2>Controls</h2>
+        <ul>
+          <li><strong>W / ↑</strong> — accelerate forward</li>
+          <li><strong>S / ↓</strong> — brake / reverse</li>
+          <li><strong>A / D</strong> — steer left / right</li>
+          <li><strong>Space</strong> — shoot</li>
+        </ul>
+
+        <h2>Play locally</h2>
+        <p>The WebGL game requires Node 18 (Nuxt 2 does not run on Node 24).</p>
+        <pre>git clone https://github.com/Krescent-The-Game/krescent.git
+cd krescent
+nvm use 18
+npm install --legacy-peer-deps
+npm run dev
+# open http://localhost:3000/game</pre>
+
+        <h2>Stack</h2>
+        <ul>
+          <li>Nuxt 2 (SPA mode, <code>ssr: false</code>)</li>
+          <li>BabylonJS 4 + vue-babylonjs</li>
+          <li>Ant Design Vue</li>
+          <li>Vuex stores for stats, enemies, power-ups</li>
+        </ul>
+
+        <h2>Rebirth roadmap</h2>
+        <ul>
+          <li>Phase 1 ✅ — Landing + docs on Vercel (this site)</li>
+          <li>Phase 2 🔜 — BabylonJS 7 + Vite playable build on Vercel</li>
+          <li>Phase 3 🔜 — Leaderboard + PWA install</li>
+        </ul>
+
+        <h2>History</h2>
+        <p>
+          Built for the
+          <a href="https://github.blog/2020-10-27-github-game-off-2020/">GitHub Game Off 2020</a>
+          Moonshot theme. Originally Nuxt + Babylon in one repo; portfolio landing follows the
+          express-instant Eternal Flame pattern.
+        </p>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="container"><a href="/">← Back to Krescent</a></div>
+    </footer>
+  </body>
+</html>

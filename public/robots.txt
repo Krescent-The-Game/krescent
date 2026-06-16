@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://krescent.vercel.app/sitemap.xml

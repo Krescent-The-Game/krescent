@@ -6,6 +6,7 @@ GitHub Game Off 2020 · moon buggy endless runner · Nuxt 2 + BabylonJS
 |-------|--------|
 | Playable SPA (`ssr: false`) | ✅ existing |
 | SEO meta refresh | ✅ |
+| Eternal Flame landing + `/docs` + SEO | ✅ `public/` express-instant pattern |
 | Vercel static landing | ✅ [krescent.vercel.app](https://krescent.vercel.app) |
 | Playable WebGL on Vercel (Babylon 7 port) | 🔜 Phase 2 — Nuxt 2 blocked on Node 24 |
 

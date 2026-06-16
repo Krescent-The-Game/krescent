@@ -1,0 +1,23 @@
+# Nuxt game source — deploy static public/ landing only on Vercel
+pages/
+components/
+plugins/
+store/
+utils/
+layouts/
+middleware/
+assets/
+static/
+nuxt.config.js
+package.json
+package-lock.json
+yarn.lock
+node_modules/
+electron.js
+config.forge.js
+package.electron.json
+jsconfig.json
+.eslintrc.js
+.prettierrc
+.editorconfig
+site/

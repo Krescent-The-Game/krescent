@@ -1,47 +1,34 @@
-# Krescent ( 🚀 Moonshot Themed Game 🌙 )
+# Krescent 🌙
 
-This game is built for participating in Github's Game Off 2020 challenge.
+**Moonshot endless runner** — GitHub Game Off 2020. Drive a moon buggy, dodge obstacles, shoot enemies, beat your score.
 
-https://github.blog/2020-10-27-github-game-off-2020/
+| | |
+|---|---|
+| **Landing** | https://krescent.vercel.app |
+| **Docs** | [/docs](https://krescent.vercel.app/docs) |
+| **Repo** | [Krescent-The-Game/krescent](https://github.com/Krescent-The-Game/krescent) |
 
-## Game Story
+By **Kevin Moe Myint Myat** (m3yevn) and **Nelson Lee** (kaichie).
 
-The challenge's theme is called Moonshot! So we figured "let's do a running game on the moon".
-
-[![IMAGE ALT TEXT HERE](https://icdn7.digitaltrends.com/image/digitaltrends/as17-147-22526hr_1-1500x1000.jpg)](https://www.youtube.com/watch?v=stOVFXuyyWQ&ab_channel=20thCenturyStudios)
-
-During the trail, there are obstacles to avoid like rocks and floating moondusts. The best score will be saved when the buggy's health bar has dropped to zero.
-The score will be saved.
-
-## Tech stack
-
-- Javascript language
-- VueJS Nuxt framework
-- BabylonJS WebGL library
-- Vue-Babylon Plugin
-
-## Participants
-
-Kevin Moe Myint Myat (m3yevn) and Nelson Lee (kaichie)
-
-- https://github.com/m3yevn
-- https://github.com/kaichie
-
-## Build Setup
+## Play locally
 
 ```bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
+nvm use 18
+npm install --legacy-peer-deps
+npm run dev
+# → http://localhost:3000/game
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+Nuxt 2 requires Node 18. Browser play on Vercel is Phase 2 (BabylonJS 7 + Vite).
+
+## Stack
+
+- Nuxt 2 (SPA) · BabylonJS 4 · Ant Design Vue · Vuex
+
+## Eternal Flame
+
+Portfolio landing + docs in `public/` — same pattern as [express-instant](https://express-instant.vercel.app) and [translatial](https://translatial.vercel.app). Game source remains at repo root for local dev.
+
+## License
+
+MIT
