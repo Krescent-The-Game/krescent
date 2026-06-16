@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Krescent — Moonshot endless runner</title>
+    <meta name="description" content="Krescent is a GitHub Game Off 2020 moon buggy endless runner built with Nuxt 2 and BabylonJS. Eternal Flame rebirth by Kevin Moe Myint Myat." />
+    <meta name="author" content="Kevin Moe Myint Myat" />
+    <meta name="theme-color" content="#050510" />
+    <link rel="canonical" href="https://krescent.vercel.app/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="hero">
+      <div class="container">
+        <span class="badge">GitHub Game Off 2020 · Eternal Flame</span>
+        <h1>Kre<span>scent</span></h1>
+        <p class="lead">
+          Drive a moon buggy across an alien surface — dodge rocks, shoot enemies, survive the endless run.
+          Originally Nuxt 2 + BabylonJS 4; playable WebGL port coming in Phase 2.
+        </p>
+        <a class="btn" href="https://github.com/Krescent-The-Game/krescent">Clone &amp; play locally</a>
+        <a class="btn btn-outline" href="/docs">Controls &amp; docs</a>
+        <article class="card">
+          <h2>Play locally</h2>
+          <p>Nuxt 2 requires Node 18. From the repo:</p>
+          <ul>
+            <li><code>nvm use 18</code></li>
+            <li><code>npm install --legacy-peer-deps</code></li>
+            <li><code>npm run dev</code> → open <code>/game</code></li>
+          </ul>
+          <p>Phase 2 rebirth: BabylonJS 7 + Vite static deploy on Vercel Node 24.</p>
+        </article>
+      </div>
+    </main>
+    <footer>
+      <div class="container">
+        MIT · <a href="https://kevinmoemyintmyat.vercel.app">Kevin Moe Myint Myat</a> · kaichie
+      </div>
+    </footer>
+  </body>
+</html>

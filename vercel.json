@@ -1,9 +1,9 @@
 {
-  "buildCommand": "npm install --legacy-peer-deps && npm run generate",
-  "outputDirectory": "dist",
-  "framework": null,
-  "rewrites": [
-    { "source": "/play", "destination": "/game/index.html" },
-    { "source": "/play/:path*", "destination": "/game/:path*" }
+  "version": 2,
+  "builds": [{ "src": "site/**", "use": "@vercel/static" }],
+  "routes": [
+    { "src": "/", "dest": "/site/index.html" },
+    { "src": "/docs", "dest": "/site/docs.html" },
+    { "src": "/(.*)", "dest": "/site/$1" }
   ]
 }
