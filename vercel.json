@@ -1,9 +1,10 @@
 {
+  "version": 2,
   "buildCommand": "npm run build:play",
   "outputDirectory": "public",
   "framework": null,
   "rewrites": [
-    { "source": "/play", "destination": "/play/index.html" },
+    { "source": "/play", "destination": "/play/game/index.html" },
     { "source": "/docs", "destination": "/docs.html" }
   ]
 }

@@ -1,3 +1,6 @@
-legacy/
+legacy/nuxt/node_modules/
+legacy/nuxt/dist/
+legacy/nuxt/.nuxt/
+play/node_modules/
 node_modules/
 .vercel/

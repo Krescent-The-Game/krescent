@@ -1,57 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-n-head="%7B%22lang%22:%7B%221%22:%22en%22%7D%7D">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Krescent — Play</title>
-    <meta name="description" content="Krescent moon buggy runner — BabylonJS 7 playable demo." />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <style>
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      html, body { width: 100%; height: 100%; overflow: hidden; background: #050510; color: #e2e8f0; font-family: system-ui, sans-serif; }
-      #ui {
-        position: fixed; inset: 0; pointer-events: none; z-index: 10;
-        display: flex; flex-direction: column; justify-content: space-between; padding: 12px 16px;
-      }
-      #hud { display: flex; gap: 16px; font-size: 14px; font-weight: 600; }
-      #hud span { background: rgba(5,5,16,.75); padding: 6px 10px; border-radius: 6px; }
-      #overlay {
-        position: fixed; inset: 0; display: grid; place-items: center;
-        background: rgba(5,5,16,.88); z-index: 20; text-align: center; padding: 24px;
-      }
-      #overlay.hidden { display: none; }
-      #overlay h1 { font-size: clamp(1.5rem, 5vw, 2.25rem); margin-bottom: 8px; color: #a78bfa; }
-      #overlay p { color: #94a3b8; max-width: 28rem; line-height: 1.5; margin-bottom: 16px; }
-      #overlay kbd { background: #1e293b; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
-      #startBtn {
-        pointer-events: auto; cursor: pointer; border: none; border-radius: 8px;
-        padding: 12px 28px; font-size: 1rem; font-weight: 600;
-        background: linear-gradient(135deg, #7c3aed, #22d3ee); color: #fff;
-      }
-      #startBtn:hover { filter: brightness(1.08); }
-      canvas { touch-action: none; display: block; width: 100%; height: 100%; }
-      a.back { pointer-events: auto; color: #22d3ee; font-size: 0.85rem; text-decoration: none; }
-      a.back:hover { text-decoration: underline; }
-    </style>
-    <script type="module" crossorigin src="/play/assets/index-3ZOmGtdB.js"></script>
-  </head>
+    <title>Krescent — Moonshot endless runner</title><meta data-n-head="1" charset="utf-8"><meta data-n-head="1" name="viewport" content="width=device-width,initial-scale=1"><meta data-n-head="1" data-hid="description" name="description" content="Krescent is a GitHub Game Off 2020 moon buggy endless runner — Nuxt 2 + BabylonJS WebGL. Play in the browser. Eternal Flame rebirth by Kevin Moe Myint Myat."><meta data-n-head="1" name="author" content="Kevin Moe Myint Myat"><meta data-n-head="1" name="theme-color" content="#0a0a0a"><meta data-n-head="1" data-hid="charset" charset="utf-8"><meta data-n-head="1" data-hid="mobile-web-app-capable" name="mobile-web-app-capable" content="yes"><meta data-n-head="1" data-hid="apple-mobile-web-app-title" name="apple-mobile-web-app-title" content="Krescent"><meta data-n-head="1" data-hid="og:type" name="og:type" property="og:type" content="website"><meta data-n-head="1" data-hid="og:title" name="og:title" property="og:title" content="Krescent"><meta data-n-head="1" data-hid="og:site_name" name="og:site_name" property="og:site_name" content="Krescent"><link data-n-head="1" rel="icon" type="image/x-icon" href="/favicon.ico"><link data-n-head="1" rel="shortcut icon" href="/play/_nuxt/icons/icon_64x64.14b8dd.png"><link data-n-head="1" rel="apple-touch-icon" href="/play/_nuxt/icons/icon_512x512.14b8dd.png" sizes="512x512"><link data-n-head="1" rel="manifest" href="/play/_nuxt/manifest.4d6cb7be.json" data-hid="manifest"><base href="/play/"><link rel="preload" href="/play/_nuxt/901c2a1.js" as="script"><link rel="preload" href="/play/_nuxt/c25951d.js" as="script"><link rel="preload" href="/play/_nuxt/vendors/app.7a3f40f.css" as="style"><link rel="preload" href="/play/_nuxt/6403e1e.js" as="script"><link rel="preload" href="/play/_nuxt/2219735.js" as="script">
+  <link href="/play/_nuxt/vendors/app.7a3f40f.css" rel="stylesheet"></head>
   <body>
-    <div id="overlay">
-      <div>
-        <h1>KRESCENT</h1>
-        <p>Moon buggy endless runner — GitHub Game Off 2020, reborn with BabylonJS 7 + Vite.</p>
-        <p><kbd>WASD</kbd> / arrows to drive · <kbd>Space</kbd> shoot · Dodge <span style="color:#f87171">red</span> rocks · Collect <span style="color:#4ade80">green</span> crystals</p>
-        <button id="startBtn" type="button">Launch mission</button>
-        <p style="margin-top:16px"><a class="back" href="/">← Back to landing</a></p>
-      </div>
-    </div>
-    <div id="ui">
-      <div id="hud">
-        <span>Score: <strong id="score">0</strong></span>
-        <span>Health: <strong id="health">100</strong></span>
-      </div>
-      <a class="back" href="/">Landing</a>
-    </div>
-    <canvas id="game"></canvas>
-  </body>
+    <div id="__nuxt"><style>#nuxt-loading{background:#fff;visibility:hidden;opacity:0;position:absolute;left:0;right:0;top:0;bottom:0;display:flex;justify-content:center;align-items:center;flex-direction:column;animation:nuxtLoadingIn 10s ease;-webkit-animation:nuxtLoadingIn 10s ease;animation-fill-mode:forwards;overflow:hidden}@keyframes nuxtLoadingIn{0%{visibility:hidden;opacity:0}20%{visibility:visible;opacity:0}100%{visibility:visible;opacity:1}}@-webkit-keyframes nuxtLoadingIn{0%{visibility:hidden;opacity:0}20%{visibility:visible;opacity:0}100%{visibility:visible;opacity:1}}#nuxt-loading>div,#nuxt-loading>div:after{border-radius:50%;width:5rem;height:5rem}#nuxt-loading>div{font-size:10px;position:relative;text-indent:-9999em;border:.5rem solid #f5f5f5;border-left:.5rem solid #000;-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0);-webkit-animation:nuxtLoading 1.1s infinite linear;animation:nuxtLoading 1.1s infinite linear}#nuxt-loading.error>div{border-left:.5rem solid #ff4500;animation-duration:5s}@-webkit-keyframes nuxtLoading{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes nuxtLoading{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}</style><script>window.addEventListener("error",function(){var e=document.getElementById("nuxt-loading");e&&(e.className+=" error")})</script><div id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div></div><script>window.__NUXT__={config:{},staticAssetsBase:void 0}</script>
+  <script src="/play/_nuxt/901c2a1.js"></script><script src="/play/_nuxt/c25951d.js"></script><script src="/play/_nuxt/6403e1e.js"></script><script src="/play/_nuxt/2219735.js"></script></body>
 </html>

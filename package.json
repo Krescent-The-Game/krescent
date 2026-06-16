@@ -1,8 +1,11 @@
 {
   "name": "krescent",
   "private": true,
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
-    "build:play": "npm install --prefix play && npm run build --prefix play",
+    "build:play": "node scripts/build-play.mjs",
     "build": "npm run build:play"
   }
 }

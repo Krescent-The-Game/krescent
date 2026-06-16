@@ -2,6 +2,15 @@ export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: "static",
 
+  router: {
+    base: "/play/",
+  },
+
+  generate: {
+    dir: "../../public/play",
+    fallback: true,
+  },
+
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: "Krescent — Moonshot endless runner",

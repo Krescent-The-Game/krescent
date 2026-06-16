@@ -74,7 +74,13 @@ export default Vue.extend({
     },
   },
   mounted() {
-    document.documentElement.requestFullscreen();
+    try {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      }
+    } catch (_) {
+      /* fullscreen optional — some browsers block without gesture */
+    }
     this.$store.commit("stats/resetHealth");
     this.$store.commit("stats/resetScore");
     this.$store.commit("stats/resetAmmo");
