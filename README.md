@@ -13,13 +13,14 @@ By **Kevin Moe Myint Myat** (m3yevn) and **Nelson Lee** (kaichie).
 ## Play locally
 
 ```bash
+cd legacy/nuxt
 nvm use 18
 npm install --legacy-peer-deps
 npm run dev
 # → http://localhost:3000/game
 ```
 
-Nuxt 2 requires Node 18. Browser play on Vercel is Phase 2 (BabylonJS 7 + Vite).
+Nuxt 2 requires Node 18. Game source lives in `legacy/nuxt/`. Browser play on Vercel is Phase 2 (BabylonJS 7 + Vite).
 
 ## Stack
 
@@ -27,7 +28,7 @@ Nuxt 2 requires Node 18. Browser play on Vercel is Phase 2 (BabylonJS 7 + Vite).
 
 ## Eternal Flame
 
-Portfolio landing + docs in `public/` — same pattern as [express-instant](https://express-instant.vercel.app) and [translatial](https://translatial.vercel.app). Game source remains at repo root for local dev.
+Game source in `legacy/nuxt/` for local dev. Portfolio landing in `public/`.
 
 ## License
 
