@@ -7,9 +7,6 @@
     "kaichie"
   ],
   "description": "A moonshot endless running game",
-  "engines": {
-    "node": "18.x"
-  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
