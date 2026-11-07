@@ -4,18 +4,17 @@ GitHub Game Off 2020 · moon buggy endless runner · Nuxt 2 + BabylonJS
 
 | Slice | Status |
 |-------|--------|
-| Eternal Flame landing + `/docs` + SEO | ✅ |
-| Vercel static landing | ✅ [krescent.vercel.app](https://krescent.vercel.app) |
-| **Original game at `/play/`** | ✅ restored locally · deploy pending |
-| Nuxt generate → `public/play/` | ✅ `npm run build:play` |
-| Node 18 build pipeline | ✅ `scripts/build-play.mjs` |
+| Original game at `/` | ✅ Nuxt generate → `public/` |
+| Vercel static | ✅ [krescent.vercel.app](https://krescent.vercel.app) |
+| `/play` → `/game` rewrite | ✅ old links still launch the run |
+| Node 18 generate pipeline | ✅ `scripts/build-play.mjs` + OpenSSL legacy |
 | Vite box demo (`play/`) | 🗄️ superseded — do not deploy |
-| Playability audits + test plan | ✅ `KRESCENT_*.md` |
+| Eternal Flame landing | 🗄️ dropped — game is the site |
 
-**Play:** [/play/](https://krescent.vercel.app/play/) · **Live:** [krescent.vercel.app](https://krescent.vercel.app)
+**Play:** [krescent.vercel.app](https://krescent.vercel.app) · **Run:** [/game/](https://krescent.vercel.app/game/)
 
-## Restoration lap (2026-06)
+## Restore (2026-11)
 
-- Root cause: `c15124f` removed game from Vercel; `4acafc8` shipped wrong Vite demo
-- Fix: rebuild `legacy/nuxt` with `router.base: /play/`
-- Verified: GLTF buggy, moon terrain, HUD, score loop on local serve
+- Landing + empty `extractCSS` made `/play` unplayable (black unstyled menu)
+- Original Game Off 2020 Nuxt app is back at site root (`extractCSS: false`)
+

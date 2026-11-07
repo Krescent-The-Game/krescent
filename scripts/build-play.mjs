@@ -35,7 +35,11 @@ const nodeDir = path.dirname(nodeBin);
 console.log(`Building Krescent with ${nodeBin}...`);
 
 const pathEnv = `${nodeDir}${path.delimiter}${process.env.PATH || ""}`;
-const env = { ...process.env, PATH: pathEnv };
+const env = {
+  ...process.env,
+  PATH: pathEnv,
+  NODE_OPTIONS: "--openssl-legacy-provider",
+};
 
 const install = spawnSync("npm", ["install", "--legacy-peer-deps"], {
   cwd: nuxtDir,
@@ -53,4 +57,4 @@ const generate = spawnSync("npx", ["nuxt", "generate"], {
 });
 if (generate.status !== 0) process.exit(generate.status ?? 1);
 
-console.log("Krescent original game built to public/play/");
+console.log("Krescent original game built to public/ (site root)");

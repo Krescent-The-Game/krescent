@@ -2,29 +2,18 @@ export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: "static",
 
-  router: {
-    base: "/play/",
-  },
-
   generate: {
-    dir: "../../public/play",
+    dir: "../../public",
     fallback: true,
   },
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: "Krescent — Moonshot endless runner",
+    title: "Krescent The Game",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      {
-        hid: "description",
-        name: "description",
-        content:
-          "Krescent is a GitHub Game Off 2020 moon buggy endless runner — Nuxt 2 + BabylonJS WebGL. Play in the browser. Eternal Flame rebirth by Kevin Moe Myint Myat.",
-      },
-      { name: "author", content: "Kevin Moe Myint Myat" },
-      { name: "theme-color", content: "#0a0a0a" },
+      { hid: "description", name: "description", content: "" },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
@@ -71,8 +60,9 @@ export default {
     transpile: ["vue-babylonjs"],
     parallel: true,
     cache: true,
-    extractCSS: process.env.NODE_ENV === "production",
-    optimizeCSS: process.env.NODE_ENV === "production",
+    // extractCSS dropped the Ant Design + layout styles in the 2026 static export
+    extractCSS: false,
+    optimizeCSS: false,
   },
   pwa: {
     meta: {

@@ -4,16 +4,14 @@
 
 | | |
 |---|---|
-| **Play** | https://krescent.vercel.app/play/ |
-| **Landing** | https://krescent.vercel.app |
-| **Docs** | [/docs](https://krescent.vercel.app/docs) |
+| **Play** | https://krescent.vercel.app |
 | **Repo** | [Krescent-The-Game/krescent](https://github.com/Krescent-The-Game/krescent) |
 
 By **Kevin Moe Myint Myat** (m3yevn) and **Nelson Lee** (kaichie).
 
 ## Play
 
-**Browser:** [krescent.vercel.app/play](https://krescent.vercel.app/play/) — original Nuxt 2 + BabylonJS 4 game.
+**Browser:** [krescent.vercel.app](https://krescent.vercel.app) — original Nuxt 2 + BabylonJS 4 game.
 
 **Local dev:**
 
@@ -28,10 +26,10 @@ npm run dev
 ## Build for Vercel
 
 ```bash
-npm run build:play   # Node 18 required
+npm run build:play   # Node 18 required (`--openssl-legacy-provider`)
 ```
 
-Output: `public/play/` (static Nuxt generate with `router.base: /play/`).
+Output: `public/` (static Nuxt generate at site root).
 
 ## Stack
 
@@ -45,12 +43,6 @@ Output: `public/play/` (static Nuxt generate with `router.base: /play/`).
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Code structure |
 | [DEPLOYMENT.md](DEPLOYMENT.md) | Vercel pipeline |
 | [KNOWN_ISSUES.md](KNOWN_ISSUES.md) | Open issues |
-
-Ecosystem audits: `KRESCENT_*.md` at monorepo root.
-
-## Restoration (2026)
-
-The Eternal Flame rebirth accidentally removed browser play (`c15124f`) and shipped a simplified Vite demo (`4acafc8`) that was not the original game. Restoration rebuilds `legacy/nuxt` to `public/play/` without changing gameplay.
 
 ## License
 

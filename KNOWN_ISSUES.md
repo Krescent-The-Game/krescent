@@ -1,6 +1,6 @@
 # Known Issues
 
-> Krescent · post-restoration
+> Krescent · original Game Off 2020 restore
 
 ---
 
@@ -8,24 +8,22 @@
 
 | Issue | Severity | Notes |
 |-------|----------|-------|
-| Production not yet redeployed | High | Push required for live fix |
-| Large bundle (~5MB) | Low | Original size; lazy-load future |
-| Fullscreen may fail without gesture | Low | try/catch added; original behavior |
+| Large bundle (~5MB) | Low | Original vue-babylonjs + Ant Design in JS |
+| Fullscreen may fail without gesture | Low | try/catch; original behavior |
 | Desktop-first controls | Info | No touch controls in original |
-| Node 18 required for build | Medium | Documented; Vercel engines set |
-| 189 npm audit vulns in legacy/nuxt | Low | Game Off 2020 deps; defer upgrade |
+| Node 18 required for generate | Medium | Documented; OpenSSL legacy provider |
+| 194 npm audit vulns in legacy/nuxt | Low | Game Off 2020 deps; defer upgrade |
 
 ---
 
-## Resolved (restoration lap)
+## Resolved
 
 | Issue | Fix |
 |-------|-----|
-| Game not on Vercel | Nuxt generate → `public/play/` |
-| Wrong Vite demo at `/play/` | `build:play` uses legacy Nuxt |
-| `legacy/` excluded from Vercel | Updated `.vercelignore` |
-| `/play/` not launching game | Rewrite to `/play/game/` |
-| Nuxt crash on Node 22 | `build-play.mjs` forces Node 18 |
+| Eternal Flame landing hid the game | Landing dropped; original Nuxt at `/` |
+| Unstyled `/play` (empty extractCSS) | `extractCSS: false`; styles inject from JS |
+| Webpack 4 vs OpenSSL 3 | `NODE_OPTIONS=--openssl-legacy-provider` |
+| `/play` 404 / wrong Vite demo | Original generate at site root; `/play` rewrites to `/game` |
 
 ---
 
